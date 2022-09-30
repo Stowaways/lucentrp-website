@@ -1,0 +1,10 @@
+.divider-flex {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.divider-grid {
+    display: grid;
+    grid-auto-flow: column;
+}
