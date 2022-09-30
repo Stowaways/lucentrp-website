@@ -1,0 +1,13 @@
+.top-navbar {
+    height: var(--top-nav-height);
+    width: 100%;
+}
+
+.top-navbar>div {
+    height: 100%;
+    width: 100%;
+}
+
+.top-navbar>div>* {
+    display: flex;
+}
