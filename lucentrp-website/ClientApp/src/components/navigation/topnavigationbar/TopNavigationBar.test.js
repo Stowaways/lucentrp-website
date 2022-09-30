@@ -19,7 +19,7 @@ describe("TopNavigationBar test cases", () => {
             </TopNavigationBar>
         );
         
-        expect(container.firstChild.firstChild.childNodes[0].textContent).toContain("Left Test")
+        expect(container.firstChild.firstChild.childNodes[0].textContent).toContain("Left Test");
     });
 
     test("Renders center justified content", () => {
@@ -29,7 +29,7 @@ describe("TopNavigationBar test cases", () => {
             </TopNavigationBar>
         );
 
-        expect(container.firstChild.firstChild.childNodes[1].textContent).toContain("Center Test")
+        expect(container.firstChild.firstChild.childNodes[1].textContent).toContain("Center Test");
     });
 
     test("Renders right justified content", () => {
@@ -39,6 +39,6 @@ describe("TopNavigationBar test cases", () => {
             </TopNavigationBar>
         );
 
-        expect(container.firstChild.firstChild.childNodes[2].textContent).toContain("Right Test")
+        expect(container.firstChild.firstChild.childNodes[2].textContent).toContain("Right Test");
     });
 });

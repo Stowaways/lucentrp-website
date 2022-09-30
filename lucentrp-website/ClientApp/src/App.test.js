@@ -6,4 +6,4 @@ describe("Main component test cases", () => {
   test("Renders the app component without crashing", () => {
     render(<App />);
   });
-})
+});
