@@ -1,0 +1,15 @@
+.hamburger-menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: var(--hamburger-icon-height);
+    justify-content: space-between;
+    width: var(--hamburger-icon-width);
+}
+
+.hamburger-menu>.line {
+    display: block;
+    background: var(--secondary-color);
+    height: 3px;
+    width: var(--hamburger-icon-width);
+}

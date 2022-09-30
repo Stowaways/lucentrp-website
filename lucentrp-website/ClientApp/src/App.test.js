@@ -7,3 +7,9 @@ describe("Main component test cases", () => {
     render(<App />);
   });
 });
+
+describe("Environment variable test cases", () => {
+  test("REACT_APP_HAMBURGER_START_WIDTH loads", () => {
+    expect(process.env.REACT_APP_HAMBURGER_START_WIDTH).toBeDefined();
+  });
+});

@@ -29,6 +29,9 @@
     --top-nav-height: 60px;
     --max-content-width: 1920px;
     --min-content-width: 300px;
+    --sliding-menu-width: 300px;
+    --hamburger-icon-height: 20px;
+    --hamburger-icon-width: 25px;
 
     /* Colors */
     --primary-color: #3C3B3B;
@@ -51,6 +54,15 @@ a {
 /* End Global Styling */
 
 /* Global Class Styling */
+.overlay {
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    width: 100vw;
+    z-index: 5;
+}
+
 .center {
     align-items: center;
     display: flex;
@@ -61,5 +73,20 @@ a {
     color: var(--accent-color);
     font-family: 'California';
     font-size: 3rem;
+}
+
+.small-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.medium-icon {
+    height: 50px;
+    width: 50px;
+}
+
+.large-icon {
+    height: 75px;
+    width: 75px;
 }
 /* End Global Class Styling */

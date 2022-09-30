@@ -1,4 +1,5 @@
 import { render } from "@testing-library/react";
+
 import FullPageSection from "./FullPageSection";
 
 describe("FullPageSection test cases", () => {
