@@ -4,7 +4,7 @@ import Divider from "./Divider";
 
 describe("Divider test cases", () => {
     test("Renders a divider without crashing", () => {
-        render(<Divider />)
+        render(<Divider />);
     });
 
     test("Renders a flex divider by default", () => {

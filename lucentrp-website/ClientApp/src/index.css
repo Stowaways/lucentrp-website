@@ -1,9 +1,65 @@
-* {
+/* Fonts */
+@font-face {
+    font-family: California;
+    src: url("../public/fonts/California.otf") format("opentype");
+}
+
+@font-face {
+    font-family: California-Swashes;
+    src: url("../public/fonts/California-Swashes.otf") format("opentype");
+}
+
+@font-face {
+    font-family: California-Alternate;
+    src: url("../public/fonts/California-Alternate.otf") format("opentype");
+}
+
+/* End Fonts */
+
+/* Global Styling */
+* { 
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
 }
 
 :root {
+    /* Sizes */
     --top-nav-height: 60px;
+    --max-content-width: 1920px;
+    --min-content-width: 300px;
+
+    /* Colors */
+    --primary-color: #3C3B3B;
+    --secondary-color: #FEFEFE;
+    --accent-color: #00D6FE;
 }
+
+html,body, #root {
+    height: max-content;
+    min-height: 100vh;
+    min-width: var(--min-content-width);
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+/* End Global Styling */
+
+/* Global Class Styling */
+.center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-text {
+    color: var(--accent-color);
+    font-family: 'California';
+    font-size: 3rem;
+}
+/* End Global Class Styling */

@@ -14,7 +14,7 @@ const TopNavigationBar = (props) => {
     const children = Array.isArray(props.children) ? props.children : (props.children ? [props.children] : [])
 
     return (
-        <nav id={props.id ? props.id : ""} className={"top-navbar" + (props.className ? ` ${props.className}` : "")}>
+        <nav id={props.id ? props.id : ""} className={"top-navbar center" + (props.className ? ` ${props.className}` : "")}>
             <Divider>
                 <div>
                     {children.filter(child => child.props.justified === "left")}

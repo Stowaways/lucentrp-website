@@ -1,5 +1,10 @@
 .top-nav-button {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    height: var(--top-nav-height);
+    padding: 15px;
+}
+
+.top-nav-button:hover {
+    filter: brightness(130%);
 }

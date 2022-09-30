@@ -1,13 +1,37 @@
 .top-navbar {
+    background: var(--primary-color);
     height: var(--top-nav-height);
+    min-width: fit-content;
+    padding: 0px 15px;
+    position: relative;
     width: 100%;
+}
+
+.top-navbar::after {
+    content: "";
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+    -webkit-box-shadow: 0 1px 0px 5px var(--secondary-color), 0 1px 10px 15px black;
+    -moz-box-shadow: 0 1px 0px 5px var(--secondary-color), 0 1px 10px 15px black;
+    box-shadow: 0 1px 0px 5px var(--secondary-color), 0 1px 10px 15px black;
+
+    pointer-events: none;
 }
 
 .top-navbar>div {
     height: 100%;
+    max-width: var(--max-content-width);
     width: 100%;
 }
 
 .top-navbar>div>* {
+    align-items: center;
     display: flex;
+    flex: 1;
+    justify-content: center;
 }

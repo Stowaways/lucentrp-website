@@ -1,0 +1,17 @@
+.full-page-section {
+    height: 100vh;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.full-page-section-sub-nav {
+    height: calc(100vh - var(--top-nav-height));
+    min-height: calc(100vh - var(--top-nav-height));
+    width: 100vw;
+}
+
+.full-page-inner-container {
+    height: 100%;
+    max-width: var(--max-content-width);
+    width: 100%;
+}

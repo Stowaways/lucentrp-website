@@ -12,7 +12,7 @@ const TopNavigationButton = (props) => {
     return (
         <a
             id={props.id ? props.id : ""}
-            className={"top-nav-button" + (props.className ? ` ${props.className}` : "")}
+            className={"top-nav-button center" + (props.className ? ` ${props.className}` : "")}
             href={props.href}
         >
             {props.content}
