@@ -1,18 +1,29 @@
 .full-page-section {
     height: 100vh;
     min-height: 100vh;
+    min-width: max(fit-content, var(--min-content-width));
     width: 100vw;
 }
 
 .full-page-section-sub-nav {
     height: calc(100vh - var(--top-nav-height));
     min-height: calc(100vh - var(--top-nav-height));
+    min-width: max-content;
     width: 100vw;
+}
+
+@media (max-width: 1000px) {
+    .full-page-section-sub-nav {
+        height: 100vh;
+        min-height: 100vh;
+        min-width: max(fit-content, var(--min-content-width));
+        width: 100vw;
+    }
 }
 
 .full-page-inner-container {
     height: 100%;
     max-width: var(--max-content-width);
-    min-width: max-content;
+    min-width: fit-content;
     width: 100%;
 }
