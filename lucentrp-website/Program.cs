@@ -1,3 +1,6 @@
+using lucentrp.Features.Users;
+using MySql.Data.MySqlClient;
+
 namespace lucentrp_website
 {
     /// <summary>
@@ -5,6 +8,14 @@ namespace lucentrp_website
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The appsettings.json configuration file.
+        /// </summary>
+        public static IConfigurationRoot AppSettings = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+
         /// <summary>
         /// The entry point of the program.
         /// </summary>
@@ -14,13 +25,22 @@ namespace lucentrp_website
             // Create a web application builder.
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+            // Register console logging with the builder.
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+
             // Register serivces with the builder.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton(_ => AppSettings);
+            builder.Services.AddSingleton(_ => new MySqlConnection(AppSettings["ConnectionStrings:Default"]));
+
+            UserService.Register(builder.Services);
 
             // Build the application.
             WebApplication app = builder.Build();
+            app.Services.GetRequiredService<MySqlConnection>().Open();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
