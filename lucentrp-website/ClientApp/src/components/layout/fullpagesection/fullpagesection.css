@@ -23,7 +23,6 @@
 
 .full-page-inner-container {
     height: 100%;
-    max-width: var(--max-content-width);
+    width: min(100vw, var(--max-content-width));
     min-width: fit-content;
-    width: 100%;
 }

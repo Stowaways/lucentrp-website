@@ -21,7 +21,7 @@
     min-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    position: absolute;
+    position: fixed;
     top: 0;
     transition: transform ease 0.5s;
     width: var(--sliding-menu-width);
@@ -33,7 +33,6 @@
 }
 
 .sliding-menu-inner-container {
-    position: relative;
     width: 100%;
     height: 100%;
 }
