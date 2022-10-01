@@ -1,5 +1,10 @@
 import "./loadingpage.css"
 
+/**
+ * Create a LoadingPage.
+ * 
+ * @returns The loading page.
+ */
 const LoadingPage = () => {
     return (
         <div className="overlay center loading-screen">

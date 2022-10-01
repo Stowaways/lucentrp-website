@@ -5,20 +5,25 @@
 }
 
 @font-face {
-    font-family: California-Swashes;
-    src: url("../public/fonts/California-Swashes.otf") format("opentype");
+    font-family: California-Alternate;
+    src: url("../public/fonts/California-Alternate.otf") format("opentype");
 }
 
 @font-face {
-    font-family: California-Alternate;
-    src: url("../public/fonts/California-Alternate.otf") format("opentype");
+    font-family: 'Roboto-Regular';
+    src: url("../public/fonts/RobotoSlab-Regular.ttf") format("truetype")
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+        src: url("../public/fonts/RobotoSlab-SemiBold.ttf") format("truetype")
 }
 
 /* End Fonts */
 
 /* Global Styling */
 * { 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Roboto-Regular";
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
@@ -41,10 +46,9 @@
 
 html,body, #root {
     height: max-content;
-    min-height: 100vh;
+    min-height: 100%;
     min-width: var(--min-content-width);
     width: 100%;
-    overflow-x: hidden;
 }
 
 a {
@@ -52,8 +56,18 @@ a {
     color: unset;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6, label {
     color: var(--secondary-color);
+    font-family: 'Roboto-Bold';
+}
+
+p, input {
+    color: var(--secondary-color);
+    font-family: 'Roboto-Regular';
+}
+
+label {
+    color: var(--accent-color);
 }
 /* End Global Styling */
 
@@ -92,5 +106,41 @@ h1 {
 .large-icon {
     height: 75px;
     width: 75px;
+}
+
+.form-text-input {
+    background-color: var(--primary-color);
+    border: none;
+    border-bottom: solid white 1px;
+    outline: none;
+    resize: none;
+}
+
+.form-text-input:hover, 
+.form-text-input:focus {
+    filter: brightness(120%);
+}
+
+.form-button {
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 500px;
+    outline: none;
+    padding: 10px;
+    resize: none;
+}
+
+.form-button:hover {
+    filter: brightness(80%);
+}
+
+.form-button:disabled:hover {
+    filter: brightness(100%);
+}
+
+.form-errror {
+    color: red;
+    font-size: 0.75em;
+    user-select: none;
 }
 /* End Global Class Styling */

@@ -12,7 +12,7 @@ import './fullpagesection.css'
 const FullPageSection = (props) => {
     return (
         <section id={props.id ? props.id : ""} className={"center " + (props.subtractNav ? "full-page-section-sub-nav" : "full-page-section") + (props.className ? ` ${props.className}` : "")}>
-            <div className="center full-page-inner-container">
+            <div className="full-page-inner-container">
                 {props.children}
             </div>
         </section>

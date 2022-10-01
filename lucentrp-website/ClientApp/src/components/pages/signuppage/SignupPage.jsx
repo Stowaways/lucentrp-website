@@ -6,16 +6,24 @@ import FullPageSection from "../../layout/fullpagesection/FullPageSection";
 import "./signuppage.css"
 import Divider from "../../layout/divider/Divider";
 
+import SignupForm from "./signupform/SignupForm";
+
+/**
+ * Create a SignupPage
+ * 
+ * @returns The signup page.
+ */
 const SignupPage = () => {
     return (
         <React.Fragment>
             <PageNavigationBar />
             <FullPageSection id="signup" subtractNav={true}>
-                <Divider className="split-form-divider">
-                    <div className="center image-box">
+                <Divider grid={true}>
+                    <div className="image-box">
                         <h1>Welcome to the party!</h1>
                     </div>
-                    <div className="center form-wrapper">
+                    <div className="form-wrapper">
+                        <SignupForm />
                     </div>
                 </Divider>
             </FullPageSection>
