@@ -22,7 +22,7 @@ const PageNavigationBar = () => {
                     <TopNavigationButton justified="right" href="/signup" content="Signup" />
                     <TopNavigationButton justified="right" href="/login" content="Login" />
                 </HamburgerMenu>
-                <TopNavigationButton justified="center" href="/" content="LucetRP" className="logo-text" />
+                <TopNavigationButton justified="center" href="/" content="LucentRP" className="logo-text" />
             </TopNavigationBar>
         );
     else
