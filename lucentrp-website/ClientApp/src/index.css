@@ -44,7 +44,7 @@ html,body, #root {
     min-height: 100vh;
     min-width: var(--min-content-width);
     width: 100%;
-    overflow-x: hidden
+    overflow-x: hidden;
 }
 
 a {
@@ -52,6 +52,9 @@ a {
     color: unset;
 }
 
+h1 {
+    color: var(--secondary-color);
+}
 /* End Global Styling */
 
 /* Global Class Styling */

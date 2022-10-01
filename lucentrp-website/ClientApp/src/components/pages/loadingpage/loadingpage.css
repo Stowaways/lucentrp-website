@@ -1,0 +1,4 @@
+.loading-screen {
+    background-color: var(--primary-color);
+    user-select: none;
+}

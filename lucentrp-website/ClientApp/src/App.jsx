@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LandingPage from './components/pages/LandingPage/LandingPage';
+
+import LandingPage from './components/pages/landingpage/LandingPage';
+import LoadingPage from './components/pages/loadingpage/LoadingPage';
+const SignupPage = React.lazy(() => import('./components/pages/signuppage/SignupPage'));
 
 /**
  * The main application component.
@@ -10,9 +13,12 @@ import LandingPage from './components/pages/LandingPage/LandingPage';
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<LandingPage />} />
-      </Routes>
+      <React.Suspense fallback={<LoadingPage />}>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+        </Routes>
+      </React.Suspense>
     </BrowserRouter>
   );
 }

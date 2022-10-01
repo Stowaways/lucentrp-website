@@ -17,7 +17,7 @@ const PageNavigationBar = () => {
     if (width <= process.env.REACT_APP_HAMBURGER_START_WIDTH)
         return (
             <TopNavigationBar>
-                <HamburgerMenu justified="left" Content={SlidingMenu}>
+                <HamburgerMenu justified="left" Content={SlidingMenu} contentProps={{side: "left"}}>
                     <TopNavigationButton justified="left" href="/" content="Home" />
                     <TopNavigationButton justified="right" href="/signup" content="Signup" />
                     <TopNavigationButton justified="right" href="/login" content="Login" />
