@@ -19,16 +19,16 @@ const initalValues = {
 const validationSchema = Yup.object().shape({
     username: Yup.string()
         .required(`Username is required`)
-        .min(process.env.REACT_APP_MIN_USERNAME_LEN, `Username must be atleast ${process.env.REACT_APP_MIN_USERNAME_LEN} characters long`)
+        .min(process.env.REACT_APP_MIN_USERNAME_LEN, `Username must be at least ${process.env.REACT_APP_MIN_USERNAME_LEN} characters long`)
         .max(process.env.REACT_APP_MAX_USERNAME_LEN, `Username must be less than ${process.env.REACT_APP_MIN_USERNAME_LEN + 1} characters long`),
     email: Yup.string()
         .required(`Email is required`)
         .email('Invalid email address')
-        .min(process.env.REACT_APP_MIN_EMAIL_LEN, `Email must be atleast ${process.env.REACT_APP_MIN_EMAIL_LEN} characters long`)
+        .min(process.env.REACT_APP_MIN_EMAIL_LEN, `Email must be at least ${process.env.REACT_APP_MIN_EMAIL_LEN} characters long`)
         .max(process.env.REACT_APP_MAX_EMAIL_LEN, `Email must be less than ${process.env.REACT_APP_MAX_EMAIL_LEN + 1} characters long`),
     password: Yup.string()
         .required(`Password is required`)
-        .min(process.env.REACT_APP_MIN_PASSWORD_LEN, `Password must be atleast ${process.env.REACT_APP_MIN_PASSWORD_LEN} characters long`)
+        .min(process.env.REACT_APP_MIN_PASSWORD_LEN, `Password must be at least ${process.env.REACT_APP_MIN_PASSWORD_LEN} characters long`)
         .max(process.env.REACT_APP_MAX_PASSWORD_LEN, `Password must be less than ${process.env.REACT_APP_MAX_PASSWORD_LEN + 1} characters long`),
     confirmPassword: Yup.string()
         .required(`Confirm password is required`)
@@ -81,6 +81,7 @@ const SignupForm = () => {
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <Field className="form-text-input" type="password" name="confirmPassword" />
                     </div>
+                    <div className="form-errror">&nbsp;</div>
                     <div className="form-button-container">
                         <button className="form-button" type="submit" disabled={isSubmitting}>Signup</button>
                         <button className="form-button" type="reset" disabled={isSubmitting}>Reset</button>

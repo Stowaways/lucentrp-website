@@ -1,29 +1,29 @@
 import React from "react";
 
-import PageNavigationBar from "../PageNavigationBar";
 import FullPageSection from "../../layout/fullpagesection/FullPageSection";
+import PageNavigationBar from "../PageNavigationBar";
 import Divider from "../../layout/divider/Divider";
 
-import SignupForm from "./signupform/SignupForm";
+import LoginForm from "./loginform/LoginForm";
 
-import "./signuppage.css"
+import "./loginpage.css";
 
 /**
- * Create a SignupPage
+ * Create a login page.
  * 
- * @returns The signup page.
+ * @returns The login page.
  */
-const SignupPage = () => {
+const LoginPage = () => {
     return (
         <React.Fragment>
             <PageNavigationBar />
-            <FullPageSection id="signup" subtractNav={true}>
+            <FullPageSection id="login" subtractNav={true}>
                 <Divider grid={true}>
                     <div className="image-box">
-                        <h1>Welcome to the party!</h1>
+                        <h1>Welcome back!</h1>
                     </div>
                     <div className="form-wrapper">
-                        <SignupForm />
+                        <LoginForm />
                     </div>
                 </Divider>
             </FullPageSection>
@@ -31,4 +31,4 @@ const SignupPage = () => {
     );
 }
 
-export default SignupPage;
+export default LoginPage;

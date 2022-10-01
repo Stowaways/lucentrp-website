@@ -1,8 +1,8 @@
-#signup {
+#login {
     --border-size: 1px;
 }
 
-.full-page-section-sub-nav, 
+.full-page-section-sub-nav,
 .full-page-section-sub-nav .divider-grid {
     min-height: calc(100vh - var(--top-nav-height));
 }
@@ -16,7 +16,7 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.divider-grid>*{
+.divider-grid>* {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -43,24 +43,24 @@
     background: var(--primary-color);
 }
 
-#signup-form {
+#login-form {
     width: 50%;
 }
 
 @media (max-width: 1500px) {
-    #signup-form {
+    #login-form {
         width: 60%;
     }
 }
 
 @media (max-width: 1000px) {
-    #signup-form {
+    #login-form {
         width: 80%;
     }
 }
 
 @media (max-width: 750px) {
-    #signup-form {
+    #login-form {
         width: 90%;
     }
 
@@ -77,17 +77,17 @@
     }
 }
 
-#signup-form>div {
+#login-form>div {
     margin: 10px 0px;
     width: 100%;
 }
 
-#signup-form>div>* {
+#login-form>div>* {
     display: block;
     width: 100%;
 }
 
-#signup-form button {
+#login-form button {
     display: inline-block;
     width: 45%;
 }
