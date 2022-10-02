@@ -1,0 +1,25 @@
+{
+    "short_name": "LucentRP",
+    "name": "LucentRP Website",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "128x128",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "icons/close.png",
+            "type": "image/png",
+            "sizes": "64x64"
+        },
+        {
+            "src": "icons/loading.svg",
+            "type": "image/svg+xml",
+            "sizes": "48x48 64x64 72x72 96x96 128x128 256x256 512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#00D6FE",
+    "background_color": "#3C3B3B"
+}
