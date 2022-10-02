@@ -64,22 +64,22 @@ const SignupForm = () => {
                     <div>
                         <div className="form-errror">{(touched.username && errors.username) ? errors.username : <>&nbsp;</>}</div>
                         <label htmlFor="username">Username</label>
-                        <Field className="form-text-input" type="text" name="username" />
+                        <Field id="username" className="form-text-input" type="text" name="username" />
                     </div>
                     <div>
                         <div className="form-errror">{(touched.email && errors.email) ? errors.email : <>&nbsp;</>}</div>
                         <label htmlFor="email">Email</label>
-                        <Field className="form-text-input" type="email" name="email" />
+                        <Field id="email" className="form-text-input" type="email" name="email" />
                     </div>
                     <div>
                         <div className="form-errror">{(touched.password && errors.password) ? errors.password : <>&nbsp;</>}</div>
                         <label htmlFor="password">Password</label>
-                        <Field className="form-text-input" type="password" name="password" />
+                        <Field id="password" className="form-text-input" type="password" name="password" />
                     </div>
                     <div>
                         <div className="form-errror">{(touched.confirmPassword && errors.confirmPassword) ? errors.confirmPassword : <>&nbsp;</>}</div>
                         <label htmlFor="confirmPassword">Confirm Password</label>
-                        <Field className="form-text-input" type="password" name="confirmPassword" />
+                        <Field id="confirmPassword" className="form-text-input" type="password" name="confirmPassword" />
                     </div>
                     <div className="form-button-container">
                         <button className="form-button" type="submit" disabled={isSubmitting}>Signup</button>

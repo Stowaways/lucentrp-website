@@ -48,12 +48,12 @@ const LoginForm = () => {
                     <div>
                         <div className="form-errror">{(touched.username && errors.username) ? errors.username : <>&nbsp;</>}</div>
                         <label htmlFor="username">Username</label>
-                        <Field className="form-text-input" type="text" name="username" />
+                        <Field id="username" className="form-text-input" type="text" name="username" />
                     </div>
                     <div>
                         <div className="form-errror">{(touched.password && errors.password) ? errors.password : <>&nbsp;</>}</div>
                         <label htmlFor="password">Password</label>
-                        <Field className="form-text-input" type="password" name="password" />
+                        <Field id="password" className="form-text-input" type="password" name="password" />
                     </div>
                     <div className="form-button-container">
                         <button className="form-button" type="submit" disabled={isSubmitting}>Login</button>

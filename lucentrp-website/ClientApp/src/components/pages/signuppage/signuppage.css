@@ -1,5 +1,5 @@
 #signup {
     --border-size: 1px;
-    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../../../../public/images/signup-login.jpg") center no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../../../../public/images/signup-login.webp") center no-repeat;
     background-size: cover;
 }
