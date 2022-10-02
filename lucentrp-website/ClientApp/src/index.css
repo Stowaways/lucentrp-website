@@ -40,6 +40,7 @@
 
     /* Colors */
     --primary-color: #3C3B3B;
+    --primary-color-transparent: rgba(0, 0, 0, 0.80);
     --secondary-color: #FEFEFE;
     --accent-color: #00D6FE;
 }
@@ -114,11 +115,6 @@ label {
     border-bottom: solid white 1px;
     outline: none;
     resize: none;
-}
-
-.form-text-input:hover, 
-.form-text-input:focus {
-    filter: brightness(120%);
 }
 
 .form-button {

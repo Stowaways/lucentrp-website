@@ -55,7 +55,6 @@ const LoginForm = () => {
                         <label htmlFor="password">Password</label>
                         <Field className="form-text-input" type="password" name="password" />
                     </div>
-                    <div className="form-errror">&nbsp;</div>
                     <div className="form-button-container">
                         <button className="form-button" type="submit" disabled={isSubmitting}>Login</button>
                         <button className="form-button" type="reset" disabled={isSubmitting}>Reset</button>

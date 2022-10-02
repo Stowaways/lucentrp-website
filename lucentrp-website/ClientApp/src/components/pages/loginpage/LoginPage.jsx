@@ -1,12 +1,11 @@
 import React from "react";
 
-import FullPageSection from "../../layout/fullpagesection/FullPageSection";
 import PageNavigationBar from "../PageNavigationBar";
-import Divider from "../../layout/divider/Divider";
-
+import SplitFullPageSection from "../../layout/splitfullpagesection/SplitFullPageSection";
 import LoginForm from "./loginform/LoginForm";
 
 import "./loginpage.css";
+import "../form.css";
 
 /**
  * Create a login page.
@@ -17,16 +16,10 @@ const LoginPage = () => {
     return (
         <React.Fragment>
             <PageNavigationBar />
-            <FullPageSection id="login" subtractNav={true}>
-                <Divider grid={true}>
-                    <div className="image-box">
-                        <h1>Welcome back!</h1>
-                    </div>
-                    <div className="form-wrapper">
-                        <LoginForm />
-                    </div>
-                </Divider>
-            </FullPageSection>
+            <SplitFullPageSection id="login" className="split-form" subtractNav={true}>
+                <h1 side="left">Welcome back!</h1>
+                <LoginForm side="right"/>
+            </SplitFullPageSection>
         </React.Fragment>
     );
 }

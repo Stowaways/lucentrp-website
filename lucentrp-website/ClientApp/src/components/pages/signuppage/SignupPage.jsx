@@ -1,12 +1,11 @@
 import React from "react";
 
 import PageNavigationBar from "../PageNavigationBar";
-import FullPageSection from "../../layout/fullpagesection/FullPageSection";
-import Divider from "../../layout/divider/Divider";
-
+import SplitFullPageSection from "../../layout/splitfullpagesection/SplitFullPageSection";
 import SignupForm from "./signupform/SignupForm";
 
-import "./signuppage.css"
+import "./signuppage.css";
+import "../form.css";
 
 /**
  * Create a SignupPage
@@ -17,16 +16,10 @@ const SignupPage = () => {
     return (
         <React.Fragment>
             <PageNavigationBar />
-            <FullPageSection id="signup" subtractNav={true}>
-                <Divider grid={true}>
-                    <div className="image-box">
-                        <h1>Welcome to the party!</h1>
-                    </div>
-                    <div className="form-wrapper">
-                        <SignupForm />
-                    </div>
-                </Divider>
-            </FullPageSection>
+            <SplitFullPageSection id="signup" className="split-form" subtractNav={true}>
+                <h1 side="left">Welcome to the party!</h1>
+                <SignupForm side="right" />
+            </SplitFullPageSection>
         </React.Fragment>
     );
 }

@@ -1,3 +1,4 @@
+using lucentrp.Features.Authentication;
 using lucentrp.Features.Users;
 using MySql.Data.MySqlClient;
 
@@ -33,8 +34,10 @@ namespace lucentrp_website
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<ILogger, Logger<Program>>();
             builder.Services.AddSingleton(_ => AppSettings);
             builder.Services.AddSingleton(_ => new MySqlConnection(AppSettings["ConnectionStrings:Default"]));
+            builder.Services.AddSingleton(serviceProvider => new AuthenticationMiddleware(serviceProvider));
 
             UserService.Register(builder.Services);
 
@@ -51,7 +54,7 @@ namespace lucentrp_website
 
             // Add middleware.
             app.UseHttpsRedirection();
-            app.UseAuthorization();
+            //app.Use(app.Services.GetRequiredService<AuthenticationMiddleware>().Authenticate);
 
             // Register API endpoints.
             app.MapControllers();

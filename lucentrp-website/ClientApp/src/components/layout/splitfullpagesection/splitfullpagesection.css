@@ -1,0 +1,29 @@
+.split-full-page-section {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.split-full-page-section-sub-nav {
+    min-height: calc(100vh - var(--top-nav-height));
+    min-width: 100vw;
+}
+
+.split-full-page-inner-wrapper {
+    min-height: 100%;
+    min-width: 50%;
+}
+
+.split-full-page-inner-wrapper:nth-child(1) {
+    display: flex;
+    justify-content: right;
+}
+
+.split-full-page-inner-wrapper:nth-child(2) {
+    display: flex;
+    justify-content: left;
+}
+
+.split-full-page-inner-container {
+    width: 100%;
+    max-width: calc(var(--max-content-width) / 2);
+}

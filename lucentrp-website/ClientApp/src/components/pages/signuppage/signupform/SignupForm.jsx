@@ -81,7 +81,6 @@ const SignupForm = () => {
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <Field className="form-text-input" type="password" name="confirmPassword" />
                     </div>
-                    <div className="form-errror">&nbsp;</div>
                     <div className="form-button-container">
                         <button className="form-button" type="submit" disabled={isSubmitting}>Signup</button>
                         <button className="form-button" type="reset" disabled={isSubmitting}>Reset</button>
