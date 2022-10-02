@@ -46,7 +46,13 @@ namespace lucentrp.Features.Users
                     @Username,
                     @Password
                   );",
-                userAccount
+                new
+                {
+                    userAccount.AccountCreated,
+                    userAccount.Email,
+                    userAccount.Username,
+                    userAccount.Password
+                }
             ) > 0;
         }
     }

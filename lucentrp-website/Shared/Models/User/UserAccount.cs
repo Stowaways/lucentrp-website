@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace lucentrp.Shared.Models.User
+﻿namespace lucentrp.Shared.Models.User
 {
     /// <summary>
     /// A class to model database users.
@@ -30,11 +28,22 @@ namespace lucentrp.Shared.Models.User
         /// <summary>
         /// The user's password.
         /// </summary>
-        [JsonIgnore]
-        public string Password { get; set; }
+        public string Password { internal get; set; }
 
         /// <summary>
-        /// Create a user account.
+        /// Construct a  new UserAccount.
+        /// </summary>
+        public UserAccount() 
+        {
+            ID = -1;
+            AccountCreated = DateTime.Now;
+            Email = "";
+            Username = "";
+            Password = "";
+        }
+
+        /// <summary>
+        /// Construct a  new UserAccount.
         /// </summary>
         /// <param name="id">The id that uniquely identifies the user.</param>
         /// <param name="accountCreated">The date and time the user's account was created.</param>
