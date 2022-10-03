@@ -1,11 +1,17 @@
 {
     "short_name": "LucentRP",
     "name": "LucentRP Website",
+    "author": "Myles Deslippe",
     "icons": [
         {
             "src": "favicon.ico",
             "sizes": "128x128",
             "type": "image/x-icon"
+        },
+        {
+            "src": "images/logo-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
         },
         {
             "src": "icons/close.png",

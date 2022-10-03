@@ -37,21 +37,33 @@ namespace lucentrp.Features.Users
                     `account_created`,
                     `email`,
                     `username`,
-                    `password`
+                    `password`,
+                    `email_verified`,
+                    `password_reset_required`,
+                    `account_locked`,
+                    `account_banned`
                   )
                   VALUES
                   (
                     @AccountCreated,
                     @Email,
                     @Username,
-                    @Password
+                    @Password,
+                    @EmailIsVerified,
+                    @PasswordResetIsRequired,
+                    @AccountIsLocked,
+                    @AccountIsBanned
                   );",
                 new
                 {
-                    userAccount.AccountCreated,
+                    AccountCreated = DateTime.Now,
                     userAccount.Email,
                     userAccount.Username,
-                    userAccount.Password
+                    userAccount.Password,
+                    EmailIsVerified = false,
+                    PasswordResetIsRequired = false,
+                    AccountIsLocked = false,
+                    AccountIsBanned = false
                 }
             ) > 0;
         }

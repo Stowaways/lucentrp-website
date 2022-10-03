@@ -43,7 +43,11 @@ namespace lucentrp.Features.Users
                     `account_created` as AccountCreated,
                     `email` as Email,
                     `username` as Username,
-                    `password` as Password
+                    `password` as Password,
+                    `email_verified` as EmailIsVerified,
+                    `password_reset_required` as PasswordResetIsRequired,
+                    `account_locked` as AccountIsLocked,
+                    `account_banned` as AccountIsBanned
                   FROM
                     `user_accounts`
                   WHERE

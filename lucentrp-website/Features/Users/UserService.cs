@@ -21,8 +21,10 @@
             serviceCollection.AddSingleton<IGetUserAccountByField, GetUserAccountByField>();
             serviceCollection.AddSingleton<IGetUserAccountByID, GetUserAccountByID>();
             serviceCollection.AddSingleton<IGetUserAccountByUsername, GetUserAccountByUsername>();
+            serviceCollection.AddSingleton<IGetUserAccountByEmail, GetUserAccountByEmail>();
 
             // Validators.
+            serviceCollection.AddSingleton<UserAccountCreationValidator>();
             serviceCollection.AddSingleton<UserAccountLoginValidator>();
         }
     }

@@ -34,10 +34,13 @@ namespace lucentrp.Features.Users
                 @"UPDATE
                     `user_accounts`
                   SET
-                    `account_created` = @AccountCreated,
                     `email` = @Email,
                     `username` = @Username,
-                    `password` = @Password
+                    `password` = @Password,
+                    `email_verified` = @EmailIsVerified,
+                    `password_reset_required` = @PasswordResetIsRequired,
+                    `account_locked` = @AccountIsLocked,
+                    `account_banned` = @AccountIsBanned
                   WHERE
                     `id` = @ID;",
                 userAccount

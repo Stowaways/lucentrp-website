@@ -31,6 +31,26 @@
         public string Password { internal get; set; }
 
         /// <summary>
+        /// If the uuser's email has been verified.
+        /// </summary>
+        public bool EmailIsVerified { get; set; }
+
+        /// <summary>
+        /// If the user requires a password reset.
+        /// </summary>
+        public bool PasswordResetIsRequired { get; set; }
+
+        /// <summary>
+        /// If the user is locked out of their account.
+        /// </summary>
+        public bool AccountIsLocked { get; set; }
+
+        /// <summary>
+        /// If the user's account has been banned.
+        /// </summary>
+        public bool AccountIsBanned { get; set; }
+
+        /// <summary>
         /// Construct a  new UserAccount.
         /// </summary>
         public UserAccount() 
@@ -50,13 +70,17 @@
         /// <param name="email">The user's email address.</param>
         /// <param name="username">The user's username.</param>
         /// <param name="password">The user's password.</param>
-        public UserAccount(long id, DateTime accountCreated, string email, string username, string password)
+        public UserAccount(long id, DateTime accountCreated, string email, string username, string password, bool emailIsVerified, bool passwordResetIsRequired, bool accountIsLocked, bool accountIsBanned)
         {
             ID = id;
             AccountCreated = accountCreated;
             Email = email;
             Username = username;
             Password = password;
+            EmailIsVerified = emailIsVerified;
+            PasswordResetIsRequired = passwordResetIsRequired;
+            AccountIsLocked = accountIsLocked;
+            AccountIsBanned = accountIsBanned;
         }
     }
 }
