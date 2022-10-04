@@ -1,6 +1,7 @@
 using lucentrp.Features.Authentication;
 using lucentrp.Features.Users;
 using lucentrp.Shared.Models.Authentication;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using MySql.Data.MySqlClient;
 
 namespace lucentrp
@@ -53,6 +54,14 @@ namespace lucentrp
 
             UserService.Register(builder.Services);
 
+            // Register the Client Application.
+            builder.Services.AddControllersWithViews();
+
+            // In production, the React files will be served from this directory
+            builder.Services.AddSpaStaticFiles(configuration => {
+                configuration.RootPath = "ClientApp/build";
+            });
+
             // Build the application.
             WebApplication app = builder.Build();
             app.Services.GetRequiredService<MySqlConnection>().Open();
@@ -70,6 +79,15 @@ namespace lucentrp
 
             // Register API endpoints.
             app.MapControllers();
+
+            // Configure the Client Application.
+            app.UseSpa(config =>
+            {
+                config.Options.SourcePath = "ClientApp";
+
+                if (app.Environment.IsDevelopment())
+                    config.UseReactDevelopmentServer(npmScript: "start");
+            });
 
             // Start the application.
             app.Run();
