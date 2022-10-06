@@ -2,7 +2,7 @@ import TopNavigationBar from '../navigation/topnavigationbar/TopNavigationBar';
 import TopNavigationButton from '../navigation/topnavigationbutton/TopNavigationButton';
 
 import HamburgerMenu from "../navigation/hamburgermenu/HamburgerMenu";
-import SlidingMenu from "../navigation/slidingmenu/SlidingMenu/SlidingMenu";
+import SlidingMenu from "../navigation/slidingmenu/SlidingMenu";
 
 import useWindowSize from "../../hooks/useWindowSize";
 
