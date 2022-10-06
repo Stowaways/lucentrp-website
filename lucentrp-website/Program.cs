@@ -24,7 +24,8 @@ namespace LucentRP
         /// <param name="args">Arguments passed in through the command line.</param>
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            // Create the web application builder.
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -45,7 +46,8 @@ namespace LucentRP
 
             UserService.Register(builder.Services);
 
-            var app = builder.Build();
+            // Build the web application.
+            WebApplication app = builder.Build();
 
             app.UseCors(builder =>
             {
@@ -60,16 +62,16 @@ namespace LucentRP
             {
             }
 
+            // Add routes.
             app.UseStaticFiles();
             app.UseRouting();
-
-
             app.MapControllerRoute(
                 name: "default",
                 pattern: "api/v1/{controller}/{action=Index}/{id?}");
 
             app.MapFallbackToFile("index.html");
 
+            // Start the server.
             app.Run();
         }
     }
