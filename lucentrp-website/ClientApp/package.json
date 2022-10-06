@@ -1,6 +1,7 @@
 {
   "name": "lucentrp_website",
   "version": "1.0.0",
+  "proxy": "http://localhost:5220",
   "private": true,
   "dependencies": {
     "formik": "^2.2.9",

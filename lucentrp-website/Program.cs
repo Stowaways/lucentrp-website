@@ -27,7 +27,6 @@ namespace LucentRP
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ILogger, Logger<Program>>();
             builder.Services.AddSingleton(_ => AppSettings);
@@ -47,6 +46,14 @@ namespace LucentRP
             UserService.Register(builder.Services);
 
             var app = builder.Build();
+
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:3000/")
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            });
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
