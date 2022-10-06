@@ -1,4 +1,4 @@
-﻿namespace lucentrp.Features.Authentication
+﻿namespace LucentRP.Features.Authentication
 {
     /// <summary>
     /// An attribute that can be used to require authentication on requests to endpoints and controllers.

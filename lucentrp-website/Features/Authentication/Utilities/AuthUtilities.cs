@@ -1,10 +1,9 @@
 ﻿using JWT.Algorithms;
 using JWT.Builder;
-using lucentrp.Shared.Models.User;
+using LucentRP.Shared.Models.User;
 using System.Security.Cryptography;
-using System.Text;
 
-namespace lucentrp.Features.Authentication
+namespace LucentRP.Features.Authentication
 {
     /// <summary>
     /// A static class containing authentication utilities.

@@ -1,4 +1,4 @@
-﻿namespace lucentrp.Features.Authentication
+﻿namespace LucentRP.Features.Authentication
 {
     /// <summary>
     /// An attribute that can be used to allow anonoymous requests on endpoints and controllers.

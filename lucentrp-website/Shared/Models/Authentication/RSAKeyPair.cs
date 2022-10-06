@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace lucentrp.Shared.Models.Authentication
+namespace LucentRP.Shared.Models.Authentication
 {
     /// <summary>
     /// A class to group RSA keys together.

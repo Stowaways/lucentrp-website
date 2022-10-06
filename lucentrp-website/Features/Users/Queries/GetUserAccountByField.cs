@@ -1,8 +1,8 @@
-﻿using lucentrp.Shared.Models.User;
+﻿using LucentRP.Shared.Models.User;
 using MySql.Data.MySqlClient;
 using Dapper;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// Get a user from the database based on a field and value.

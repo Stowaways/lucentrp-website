@@ -1,11 +1,11 @@
-﻿using lucentrp.Features.Users;
-using lucentrp.Shared.Models.Authentication;
-using lucentrp.Shared.Models.User;
+﻿using LucentRP.Features.Users;
+using LucentRP.Shared.Models.Authentication;
+using LucentRP.Shared.Models.User;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using MySql.Data.MySqlClient;
 
-namespace lucentrp.Features.Authentication
+namespace LucentRP.Features.Authentication
 {
     /// <summary>
     /// Middleware that will be used to perform user authentication.

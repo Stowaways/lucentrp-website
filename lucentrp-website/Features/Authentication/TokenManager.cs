@@ -1,7 +1,7 @@
-﻿using lucentrp.Shared.Models.Authentication;
-using lucentrp.Shared.Models.User;
+﻿using LucentRP.Shared.Models.Authentication;
+using LucentRP.Shared.Models.User;
 
-namespace lucentrp.Features.Authentication
+namespace LucentRP.Features.Authentication
 {
     /// <summary>
     /// The class responsible for managing user tokens.

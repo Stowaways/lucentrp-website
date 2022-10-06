@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using lucentrp.Shared.Models.User;
-using lucentrp.Shared.Validator;
+using LucentRP.Shared.Models.User;
+using LucentRP.Shared.Validator;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// A validator that can be used to validate login requests.

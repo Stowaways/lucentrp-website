@@ -1,8 +1,8 @@
-﻿using lucentrp.Shared.Models.User;
+﻿using LucentRP.Shared.Models.User;
 using MySql.Data.MySqlClient;
 using Dapper;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// A command to update a user account in the database.

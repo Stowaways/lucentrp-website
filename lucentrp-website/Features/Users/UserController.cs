@@ -1,16 +1,16 @@
 ﻿using FluentValidation.Results;
-using lucentrp.Features.Authentication;
-using lucentrp.Shared.Models.User;
+using LucentRP.Features.Authentication;
+using LucentRP.Shared.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// The controller responsible for all user endpoints.
     /// </summary>
     [Authenticate]
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/v1/[controller]/[action]")]
     public class UserController : ControllerBase
     {
         /// <summary>

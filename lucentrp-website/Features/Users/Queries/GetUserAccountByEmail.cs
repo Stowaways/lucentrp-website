@@ -1,6 +1,6 @@
-﻿using lucentrp.Shared.Models.User;
+﻿using LucentRP.Shared.Models.User;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// A query to get a user account from the database by their email address.

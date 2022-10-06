@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace lucentrp.Shared.Validator
+namespace LucentRP.Shared.Validator
 {
     /// <summary>
     /// An abstract validator that is used to validate objects that model database rows.

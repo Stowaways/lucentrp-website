@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Dapper;
 
-namespace lucentrp.Features.Users
+namespace LucentRP.Features.Users
 {
     /// <summary>
     /// A command to delete user accounts from the database.

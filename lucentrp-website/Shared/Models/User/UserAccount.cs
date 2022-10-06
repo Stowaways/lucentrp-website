@@ -1,4 +1,4 @@
-﻿namespace lucentrp.Shared.Models.User
+﻿namespace LucentRP.Shared.Models.User
 {
     /// <summary>
     /// A class to model database users.

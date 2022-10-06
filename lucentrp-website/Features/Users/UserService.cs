@@ -1,4 +1,4 @@
-﻿namespace lucentrp.Features.Users
+﻿namespace LucentRP.Features.Users
 {
     /// <summary>
     /// A static class that is used to register services required by
