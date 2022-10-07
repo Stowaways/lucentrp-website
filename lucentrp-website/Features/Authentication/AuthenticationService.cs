@@ -17,17 +17,17 @@ namespace LucentRP.Features.Authentication
             serviceCollection.AddSingleton<IAuthenticate, Authenticate>();
             serviceCollection.AddSingleton(serviceProvider => new AuthenticationMiddleware(serviceProvider.GetRequiredService<IAuthenticate>()));
             serviceCollection.AddSingleton(serviceProvider => new TokenManager(serviceProvider.GetRequiredService<RSAKeyPair>()));
-            serviceCollection.AddSingleton(serviceProvider => 
+            serviceCollection.AddSingleton(serviceProvider =>
                 new RSAKeyPair(
                     AuthUtilities.LoadKey(
                         Path.Combine(
-                            Directory.GetCurrentDirectory(), 
+                            Directory.GetCurrentDirectory(),
                             serviceProvider.GetRequiredService<IConfigurationRoot>()["Authentication:PublicKey"]
                         )
                     ),
                     AuthUtilities.LoadKey(
                         Path.Combine(
-                            Directory.GetCurrentDirectory(), 
+                            Directory.GetCurrentDirectory(),
                             serviceProvider.GetRequiredService<IConfigurationRoot>()["Authentication:PrivateKey"]
                         )
                     )

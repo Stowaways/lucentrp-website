@@ -1,6 +1,6 @@
-﻿using LucentRP.Shared.Models.User;
+﻿using Dapper;
+using LucentRP.Shared.Models.User;
 using MySql.Data.MySqlClient;
-using Dapper;
 
 namespace LucentRP.Features.Users
 {

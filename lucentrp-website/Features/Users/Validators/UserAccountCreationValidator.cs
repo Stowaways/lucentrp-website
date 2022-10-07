@@ -30,7 +30,7 @@ namespace LucentRP.Features.Users
         /// <param name="config">The configuration file containing user account validation parameters.</param>
         /// <param name="basePath">The base path of the configuration section.</param>
         public UserAccountCreationValidator(
-            IConfigurationRoot config, 
+            IConfigurationRoot config,
             IGetUserAccountByUsername getUserAccountByUsername,
             IGetUserAccountByEmail getUserAccountByEmail,
             string basePath = "Validation:User:CreateAccount:"

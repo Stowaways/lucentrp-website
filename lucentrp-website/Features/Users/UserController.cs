@@ -67,12 +67,12 @@ namespace LucentRP.Features.Users
         /// Construct a new user controller.
         /// </summary>
         public UserController(
-            ILogger<UserController> logger, 
+            ILogger<UserController> logger,
             IAuthenticate authenticate,
             TokenManager tokenManager,
-            IInsertUserAccount insertUserAccount, 
-            IUpdateUserAccount updateUserAccount, 
-            IDeleteUserAccount deleteUserAccount, 
+            IInsertUserAccount insertUserAccount,
+            IUpdateUserAccount updateUserAccount,
+            IDeleteUserAccount deleteUserAccount,
             IGetUserAccountByID getUserAccountByID,
             IGetUserAccountByUsername getUserAccountByUsername,
             UserAccountLoginValidator userAccountLoginValidator,
@@ -117,7 +117,8 @@ namespace LucentRP.Features.Users
 
                 // Return the result of the insertion.
                 return success ? Ok() : StatusCode(500);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while a user was attempting to create an account: {Message}", ex.Message);
                 return StatusCode(500);
@@ -138,7 +139,7 @@ namespace LucentRP.Features.Users
             {
                 // Validate the request.
                 ValidationResult result = _userAccountLoginValidator.Validate(userAccount);
-                
+
                 // If the request is invalid.
                 if (!result.IsValid)
                     return BadRequest(result.Errors);
@@ -162,9 +163,9 @@ namespace LucentRP.Features.Users
 
                 // Send the anti csrf token.
                 return Ok(
-                    new 
+                    new
                     {
-                        AntiCsrfToken = antiCsrfToken 
+                        AntiCsrfToken = antiCsrfToken
                     }
                 );
             }

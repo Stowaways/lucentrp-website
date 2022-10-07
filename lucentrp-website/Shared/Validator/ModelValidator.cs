@@ -23,7 +23,7 @@ namespace LucentRP.Shared.Validator
         /// </summary>
         /// <param name="config">The configuration containing validation rules.</param>
         /// <param name="basePath">The base path of the configuration section containing the validation rules.</param>
-        public ModelValidator(IConfigurationRoot config, string basePath)
+        protected ModelValidator(IConfigurationRoot config, string basePath)
         {
             _config = config;
             _basePath = basePath;

@@ -44,7 +44,7 @@ namespace LucentRP.Features.Authentication
                 return null;
 
             // If the claims are provided as the wrong datatype.
-            if (claims["id"].GetType() != typeof(long) || claims["password"].GetType() != typeof(string))
+            if (claims["id"] is not long || claims["password"] is not string)
                 return null;
 
             // Load the user account from the database.

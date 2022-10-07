@@ -53,7 +53,8 @@ namespace LucentRP.Features.Authentication
                 try
                 {
                     userAccount = _authenticate.Execute(authCookie);
-                } catch (Exception exception)
+                }
+                catch (Exception exception)
                 {
                     context.Response.StatusCode = exception is MySqlException ? 500 : 401;
                     await context.Response.CompleteAsync();
@@ -81,33 +82,28 @@ namespace LucentRP.Features.Authentication
         /// </summary>
         /// <param name="context">The request context.</param>
         /// <returns>If authentication is required or not.</returns>
-        private bool AuthenticationIsRequired(HttpContext context)
+        private static bool AuthenticationIsRequired(HttpContext context)
         {
             // Get the endpoint that is being requested.
             IEndpointFeature? endpointFeature = context.Features.Get<IEndpointFeature>();
             object? endpointAuthAttribute = null;
             object? endpointAnonAttribute = null;
             object? controllerAuthAttribute = null;
-            object? controllerAnonAttribute = null;
 
             // If the endpoint does not exist.
             if (endpointFeature == null || endpointFeature.Endpoint == null)
                 return false;
 
             // Get the endpoint's authentication attributes.
-            endpointAuthAttribute = endpointFeature.Endpoint.Metadata.Where(m => m is AuthenticateAttribute).FirstOrDefault();
-            endpointAnonAttribute = endpointFeature.Endpoint.Metadata.Where(m => m is AnonymousAttribute).FirstOrDefault();
+            endpointAuthAttribute = endpointFeature.Endpoint.Metadata.FirstOrDefault(m => m is AuthenticateAttribute);
+            endpointAnonAttribute = endpointFeature.Endpoint.Metadata.FirstOrDefault(m => m is AnonymousAttribute);
 
             // Get the controller the endpoint belings to (may not belong to one).
             ControllerActionDescriptor? controller = endpointFeature.Endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
 
             // If the endpoint belongs to a controller.
             if (controller != null)
-            {
-                // Get the class' attributes.
                 controllerAuthAttribute = controller.ControllerTypeInfo.GetCustomAttributes(typeof(AuthenticateAttribute), true).FirstOrDefault();
-                controllerAnonAttribute = controller.ControllerTypeInfo.GetCustomAttributes(typeof(AnonymousAttribute), true).FirstOrDefault();
-            }
 
             // If the endpoint allows anonoymous requests.
             if (endpointAnonAttribute != null)

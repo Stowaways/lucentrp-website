@@ -63,7 +63,7 @@ namespace LucentRP.Features.Authentication
                 .MustVerifySignature()
                 .Decode<IDictionary<string, object>>(token);
         }
-        
+
         /// <summary>
         /// Load an unencrypted key.
         /// </summary>
@@ -87,6 +87,7 @@ namespace LucentRP.Features.Authentication
         {
             RSA key = RSA.Create();
             key.ImportFromEncryptedPem(file, password);
+
             return key;
         }
     }

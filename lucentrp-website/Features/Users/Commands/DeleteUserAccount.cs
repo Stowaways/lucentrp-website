@@ -1,5 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using Dapper;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace LucentRP.Features.Users
 {
@@ -34,7 +34,7 @@ namespace LucentRP.Features.Users
                     `user_accounts`
                   WHERE
                     `id` = @id;",
-                  new 
+                  new
                   {
                       id
                   }

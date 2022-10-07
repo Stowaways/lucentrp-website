@@ -49,7 +49,7 @@ namespace LucentRP.Features.Authentication
         /// Generate a cryptographically string string of random bytes.
         /// </summary>
         /// <returns></returns>
-        private string GenerateAntiCsrfToken()
+        private static string GenerateAntiCsrfToken()
         {
             return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }

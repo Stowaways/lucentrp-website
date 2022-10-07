@@ -53,7 +53,7 @@
         /// <summary>
         /// Construct a  new UserAccount.
         /// </summary>
-        public UserAccount() 
+        public UserAccount()
         {
             ID = -1;
             AccountCreated = DateTime.Now;
