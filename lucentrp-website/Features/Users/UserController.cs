@@ -19,6 +19,11 @@ namespace LucentRP.Features.Users
         private readonly ILogger<UserController> _logger;
 
         /// <summary>
+        /// The command that will be used to authenticate users.
+        /// </summary>
+        private readonly IAuthenticate _authenticate;
+
+        /// <summary>
         /// The token manager that will be used to encode and decode tokens.
         /// </summary>
         private readonly TokenManager _tokenManager;
@@ -63,6 +68,7 @@ namespace LucentRP.Features.Users
         /// </summary>
         public UserController(
             ILogger<UserController> logger, 
+            IAuthenticate authenticate,
             TokenManager tokenManager,
             IInsertUserAccount insertUserAccount, 
             IUpdateUserAccount updateUserAccount, 
@@ -74,6 +80,7 @@ namespace LucentRP.Features.Users
         )
         {
             _logger = logger;
+            _authenticate = authenticate;
             _tokenManager = tokenManager;
             _insertUserAccount = insertUserAccount;
             _updateUserAccount = updateUserAccount;
@@ -183,56 +190,13 @@ namespace LucentRP.Features.Users
             // Get the authentication cookie.
             string? authCookie = Request.Cookies["Authorization"];
 
-            // If the authentication cookie was not found.
-            if (string.IsNullOrEmpty(authCookie))
+            // If an invalid cookie was sent.
+            if (string.IsNullOrEmpty(authCookie) || !authCookie.StartsWith("Bearer "))
                 return Ok(false);
 
-            // If the cookie is malformed.
-            if (!authCookie.StartsWith("Bearer "))
-                return Ok(false);
-
-            // Decode the token.
-            IDictionary<string, object> claims;
-
-            try
-            {
-                claims = _tokenManager.DecodeToken(authCookie.Replace("Bearer ", ""));
-            }
-            catch
-            {
-                return Ok(false);
-            }
-
-            // If the token does not provide the required claims.
-            if (claims["id"] == null || claims["password"] == null)
-                return Ok(false);
-
-            // If the claims are provided as the wrong datatype.
-            if (claims["id"].GetType() != typeof(long) || claims["password"].GetType() != typeof(string))
-                return Ok(false);
-
-            // Load the user's account.
-            UserAccount? userAccount;
-
-            try
-            {
-                userAccount = _getUserAccountByID.Execute((long)claims["id"]);
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-
-            // If the user's account could not be found.
-            if (userAccount == null)
-                return Ok(false);
-
-            // If the passwords do not match.
-            if (!userAccount.Password.Equals(claims["password"]))
-                return Ok(false);
-
-            // The user is authenticated.
-            return Ok(true);
+            // Perform the authentication.
+            bool isAuthenticated = _authenticate.Execute(authCookie) != null;
+            return Ok(isAuthenticated);
         }
     }
 }

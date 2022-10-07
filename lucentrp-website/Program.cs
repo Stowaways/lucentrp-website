@@ -1,6 +1,5 @@
 using LucentRP.Features.Authentication;
 using LucentRP.Features.Users;
-using LucentRP.Shared.Models.Authentication;
 using MySql.Data.MySqlClient;
 
 namespace LucentRP
@@ -27,23 +26,13 @@ namespace LucentRP
             // Create the web application builder.
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Add services to the application.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ILogger, Logger<Program>>();
             builder.Services.AddSingleton(_ => AppSettings);
             builder.Services.AddSingleton(_ => new MySqlConnection(AppSettings["ConnectionStrings:Default"]));
-            builder.Services.AddSingleton(serviceProvider => new AuthenticationMiddleware(serviceProvider));
-            builder.Services.AddSingleton(serviceProvider => new TokenManager(serviceProvider.GetRequiredService<RSAKeyPair>()));
-            builder.Services.AddSingleton(_ => new RSAKeyPair(
-                                                    AuthUtilities.LoadKey(
-                                                        Path.Combine(Directory.GetCurrentDirectory(), AppSettings["Authentication:PublicKey"])
-                                                    ),
-                                                    AuthUtilities.LoadKey(
-                                                        Path.Combine(Directory.GetCurrentDirectory(), AppSettings["Authentication:PrivateKey"])
-                                                    )
-                                                )
-            );
 
+            AuthenticationService.Register(builder.Services);
             UserService.Register(builder.Services);
 
             // Build the web application.
@@ -57,11 +46,6 @@ namespace LucentRP
                         .AllowAnyHeader();
             });
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-            }
-
             // Add routes.
             app.UseStaticFiles();
             app.UseRouting();
@@ -69,6 +53,7 @@ namespace LucentRP
                 name: "default",
                 pattern: "api/v1/{controller}/{action=Index}/{id?}");
 
+            // Add a default file.
             app.MapFallbackToFile("index.html");
 
             // Start the server.
