@@ -1,6 +1,4 @@
-﻿using LucentRP.Features.Users;
-using LucentRP.Shared.Models.Authentication;
-using LucentRP.Shared.Models.User;
+﻿using LucentRP.Shared.Models.User;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using MySql.Data.MySqlClient;

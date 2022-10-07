@@ -1,5 +1,6 @@
 ﻿using LucentRP.Shared.Models.Authentication;
 using LucentRP.Shared.Models.User;
+using System.Security.Cryptography;
 
 namespace LucentRP.Features.Authentication
 {
@@ -26,10 +27,12 @@ namespace LucentRP.Features.Authentication
         /// Create a new token.
         /// </summary>
         /// <param name="userAccount">The user account that will be bound to the token.</param>
-        /// <returns>The created token.</returns>
-        public string CreateToken(UserAccount userAccount)
+        /// <returns>A tuple containing an anti cross-site request forgery token, and the user's 
+        /// authentication token.</returns>
+        public (string, string) CreateToken(UserAccount userAccount)
         {
-            return AuthUtilities.CreateUserToken(userAccount, _rsaKeyPair.PublicKey, _rsaKeyPair.PrivateKey);
+            string antiCsrfToken = GenerateAntiCsrfToken();
+            return (antiCsrfToken, AuthUtilities.CreateUserToken(userAccount, _rsaKeyPair.PublicKey, _rsaKeyPair.PrivateKey, antiCsrfToken));
         }
 
         /// <summary>
@@ -40,6 +43,15 @@ namespace LucentRP.Features.Authentication
         public IDictionary<string, object> DecodeToken(string token)
         {
             return AuthUtilities.DecodeToken(token, _rsaKeyPair.PublicKey, _rsaKeyPair.PrivateKey);
+        }
+
+        /// <summary>
+        /// Generate a cryptographically string string of random bytes.
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateAntiCsrfToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

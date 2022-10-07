@@ -155,10 +155,18 @@ namespace LucentRP.Features.Users
                     return Unauthorized();
 
                 // Create the user's token.
-                string token = _tokenManager.CreateToken(targetAccount);
+                (string antiCsrfToken, string authToken) = _tokenManager.CreateToken(targetAccount);
 
-                Response.Cookies.Append("Authorization", $"Bearer {token}", new CookieOptions { HttpOnly = true, Secure = true, SameSite = SameSiteMode.Strict });
-                return Ok();
+                // Add the authentication cookie.
+                Response.Cookies.Append("Authorization", $"Bearer {authToken}", new CookieOptions { HttpOnly = true, Secure = true, SameSite = SameSiteMode.Strict });
+
+                // Send the anti csrf token.
+                return Ok(
+                    new 
+                    {
+                        AntiCsrfToken = antiCsrfToken 
+                    }
+                );
             }
             catch (Exception ex)
             {

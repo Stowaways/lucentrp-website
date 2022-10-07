@@ -37,13 +37,15 @@ namespace LucentRP.Features.Authentication
         /// <param name="userAccount">The user account to generate the token for.</param>
         /// <param name="publicKey">The public key that will be used to generate the token.</param>
         /// <param name="privateKey">The private key that will be used to generate the token.</param>
+        /// <param name="antiCsrfToken">A token that will be used to prevent cross-site forgery requests.</param>
         /// <returns>The generated user token.</returns>
-        public static string CreateUserToken(UserAccount userAccount, RSA publicKey, RSA privateKey)
+        public static string CreateUserToken(UserAccount userAccount, RSA publicKey, RSA privateKey, string antiCsrfToken)
         {
             return JwtBuilder.Create()
                 .WithAlgorithm(new RS256Algorithm(publicKey, privateKey))
                 .AddClaim("id", userAccount.ID)
                 .AddClaim("password", userAccount.Password)
+                .AddClaim("csrfToken", antiCsrfToken)
                 .Encode();
         }
 
