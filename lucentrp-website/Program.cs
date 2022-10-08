@@ -1,4 +1,5 @@
 using LucentRP.Features.Authentication;
+using LucentRP.Features.Permissions;
 using LucentRP.Features.Users;
 using MySql.Data.MySqlClient;
 
@@ -33,6 +34,7 @@ namespace LucentRP
             builder.Services.AddSingleton(_ => new MySqlConnection(AppSettings["ConnectionStrings:Default"]));
 
             AuthenticationService.Register(builder.Services);
+            PermissionService.Register(builder.Services);
             UserService.Register(builder.Services);
 
             // Build the web application.

@@ -116,7 +116,7 @@ namespace LucentRP.Features.Users
                 bool success = _insertUserAccount.Execute(userAccount);
 
                 // Return the result of the insertion.
-                return success ? Ok(new {}) : StatusCode(500);
+                return success ? Ok(new { }) : StatusCode(500);
             }
             catch (Exception ex)
             {
