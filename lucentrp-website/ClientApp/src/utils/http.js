@@ -3,7 +3,7 @@
  * 
  * @param {string} url The url of the resource to fetch.
  * @param {string} method The HTTP method to use.
- * @param {boolean} antiCsrf If anti cross-site forgery measures should be used.
+ * @param {boolean} antiCsrf If anti cross-site request forgery measures should be used.
  * @param {object} body The body of the request.
  * @returns {object} A promise to the response.
  */

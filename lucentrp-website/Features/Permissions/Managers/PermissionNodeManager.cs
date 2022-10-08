@@ -3,7 +3,7 @@ using LucentRP.Shared.DataManager;
 using LucentRP.Shared.Models.Permission;
 using MySql.Data.MySqlClient;
 
-namespace LucentRP.Features.Permissions.Managers
+namespace LucentRP.Features.Permissions
 {
     /// <summary>
     /// A manager to manager permission nodes in the database.
