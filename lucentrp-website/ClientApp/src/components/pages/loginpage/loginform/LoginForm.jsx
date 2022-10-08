@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
+
+import ErrorBox from '../../../shared/errorbox/ErrorBox';
+import ErrorIcon from '../../../shared/icons/ErrorIcon';
+
+import * as UserAccountServices from '../../../../services/userAccountServices';
 
 /**
  * The login form's initial values.
@@ -25,8 +30,23 @@ const validationSchema = Yup.object().shape({
  * @param {*} values The form values. 
  * @param {*} actions Actions that can be performed to the form.
  */
-const submit = (values, actions) => {
-    // TODO: Implement the submit action.
+const submit = async (values, formikHelpers, setServerError) => {
+    const loginResponse = await UserAccountServices.login(values);
+
+    // If an error occurred .
+    if (loginResponse.status !== 200) {
+        setServerError({
+            occurred: true,
+            message: "Your account was created but an error occurred while logging in!"
+        });
+
+        formikHelpers.resetForm();
+        formikHelpers.setSubmitting(false);
+        return;
+    }
+
+    // If the user logged in successfully, redirect them to the dashboard.
+    window.location.href = "dashboard";
 }
 
 /**
@@ -35,6 +55,11 @@ const submit = (values, actions) => {
  * @returns The login form.
  */
 const LoginForm = () => {
+    const [serverError, setServerError] = useState({
+        occurred: false,
+        message: ""
+    })
+
     return (
         <Formik
             initialValues={initalValues}
@@ -45,6 +70,12 @@ const LoginForm = () => {
         >
             {({ isSubmitting, touched, errors }) => (
                 <Form id="login-form">
+                    {serverError.occurred &&
+                        <ErrorBox>
+                            <ErrorIcon className="small-icon" onClick={() => setServerError({ ...serverError, occurred: false })} />
+                            <p>{serverError.message}</p>
+                        </ErrorBox>
+                    }
                     <div>
                         <div className="form-errror">{(touched.username && errors.username) ? errors.username : <>&nbsp;</>}</div>
                         <label htmlFor="username">Username</label>

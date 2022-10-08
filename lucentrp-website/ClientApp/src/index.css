@@ -43,6 +43,9 @@
     --primary-color-transparent: rgba(0, 0, 0, 0.80);
     --secondary-color: #FEFEFE;
     --accent-color: #00D6FE;
+
+    --error-foreground: #CC0000;
+    --error-background: #FFCCCC;
 }
 
 html,body, #root {
@@ -97,6 +100,7 @@ label {
 .small-icon {
     height: 20px;
     width: 20px;
+    max-width: 20px;
 }
 
 .medium-icon {

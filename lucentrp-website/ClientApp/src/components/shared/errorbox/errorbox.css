@@ -1,0 +1,15 @@
+.error-box {
+    background: var(--error-background);
+    border: solid var(--error-foreground) 2px;
+    border-radius: 10px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.error-box > p {
+    color: black;
+}
+
+.error-box > :is(.small-icon, .medium-icon, .large-icon) {
+    cursor: pointer;
+}

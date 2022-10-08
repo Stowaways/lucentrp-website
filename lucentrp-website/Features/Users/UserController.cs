@@ -107,7 +107,7 @@ namespace LucentRP.Features.Users
 
                 // If the request is invalid.
                 if (!result.IsValid)
-                    return BadRequest(result.Errors);
+                    return UnprocessableEntity(result.Errors);
 
                 // Hash the user's password.
                 userAccount.Password = AuthUtilities.HashPassword(userAccount.Password);
@@ -116,7 +116,7 @@ namespace LucentRP.Features.Users
                 bool success = _insertUserAccount.Execute(userAccount);
 
                 // Return the result of the insertion.
-                return success ? Ok() : StatusCode(500);
+                return success ? Ok(new {}) : StatusCode(500);
             }
             catch (Exception ex)
             {
@@ -142,7 +142,7 @@ namespace LucentRP.Features.Users
 
                 // If the request is invalid.
                 if (!result.IsValid)
-                    return BadRequest(result.Errors);
+                    return UnprocessableEntity(result.Errors);
 
                 // Get the users information from the database.
                 UserAccount? targetAccount = _getUserAccountByUsername.Execute(userAccount.Username);
@@ -165,7 +165,7 @@ namespace LucentRP.Features.Users
                 return Ok(
                     new
                     {
-                        AntiCsrfToken = antiCsrfToken
+                        CsrfToken = antiCsrfToken
                     }
                 );
             }
