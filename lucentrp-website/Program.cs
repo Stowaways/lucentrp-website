@@ -40,15 +40,19 @@ namespace LucentRP
 
             app.UseCors(builder =>
             {
-                builder.WithOrigins("http://localhost:3000/")
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
             });
 
             // Add routes.
             app.UseStaticFiles();
             app.UseRouting();
+
+            // Add authentication and verification middleware.
+            app.Use(new AuthenticationMiddleware(app.Services.GetRequiredService<IAuthenticate>()).Execute);
+            app.Use(new AntiForgeryVerificationMiddleware(app.Services.GetRequiredService<IVerifyAntiForgeryToken>()).Execute);
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "api/v1/{controller}/{action=Index}/{id?}");

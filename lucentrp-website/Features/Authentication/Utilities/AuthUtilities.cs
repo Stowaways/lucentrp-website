@@ -45,7 +45,7 @@ namespace LucentRP.Features.Authentication
                 .WithAlgorithm(new RS256Algorithm(publicKey, privateKey))
                 .AddClaim("id", userAccount.ID)
                 .AddClaim("password", userAccount.Password)
-                .AddClaim("csrfToken", antiCsrfToken)
+                .AddClaim("CsrfToken", antiCsrfToken)
                 .Encode();
         }
 

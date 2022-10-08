@@ -37,13 +37,10 @@ namespace LucentRP.Features.Authentication
         /// <returns>The user's account if they are authenticated, otherwise null.</returns>
         public UserAccount? Execute(string token)
         {
+            // Decode the authentication token.
             IDictionary<string, object> claims = AuthUtilities.DecodeToken(token, _rsaKeyPair.PublicKey, _rsaKeyPair.PrivateKey);
 
-            // If the token does not provide the required claims.
-            if (claims["id"] == null || claims["password"] == null)
-                return null;
-
-            // If the claims are provided as the wrong datatype.
+            // If the token does not provide valid id and password claims.
             if (claims["id"] is not long || claims["password"] is not string)
                 return null;
 

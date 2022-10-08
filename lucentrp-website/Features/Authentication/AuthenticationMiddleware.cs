@@ -1,5 +1,4 @@
 ﻿using LucentRP.Shared.Models.User;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using MySql.Data.MySqlClient;
 
@@ -27,53 +26,55 @@ namespace LucentRP.Features.Authentication
         }
 
         /// <summary>
-        /// The authentication middleware implementation.
+        /// Execute the authentication.
         /// </summary>
         /// <param name="context">The request context.</param>
         /// <param name="next">The next middleware function to call.</param>
         /// <returns>A task.</returns>
-        public async Task Authenticate(HttpContext context, Func<Task> next)
+        public async Task Execute(HttpContext context, Func<Task> next)
         {
-            if (AuthenticationIsRequired(context))
+            // If authentication is not required.
+            if (!AuthenticationIsRequired(context))
             {
-                // Get the authentication cookie.
-                string? authCookie = context.Request.Cookies["Authorization"];
-
-                // If there is no valid auth cookie.
-                if (string.IsNullOrEmpty(authCookie) || !authCookie.StartsWith("Bearer "))
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.CompleteAsync();
-                    return;
-                }
-
-                // Authenticate the user.
-                UserAccount? userAccount;
-
-                try
-                {
-                    userAccount = _authenticate.Execute(authCookie);
-                }
-                catch (Exception exception)
-                {
-                    context.Response.StatusCode = exception is MySqlException ? 500 : 401;
-                    await context.Response.CompleteAsync();
-                    return;
-                }
-
-                // If the authentication failed.
-                if (userAccount == null)
-                {
-                    context.Response.StatusCode = 401;
-                    await context.Response.CompleteAsync();
-                    return;
-                }
-
-                // If the authentication succeeded.
-                context.Items.Add("account", userAccount);
+                await next();
+                return;
             }
 
-            // Call the next middleware function.
+            // Get the authentication cookie.
+            string? authCookie = context.Request.Cookies["Authorization"];
+
+            // If there is no valid auth cookie.
+            if (string.IsNullOrEmpty(authCookie) || !authCookie.StartsWith("Bearer "))
+            {
+                context.Response.StatusCode = 401;
+                await context.Response.CompleteAsync();
+                return;
+            }
+
+            // Authenticate the user.
+            UserAccount? userAccount;
+
+            try
+            {
+                userAccount = _authenticate.Execute(authCookie.Replace("Bearer ", ""));
+            }
+            catch (Exception exception)
+            {
+                context.Response.StatusCode = exception is MySqlException ? 500 : 401;
+                await context.Response.CompleteAsync();
+                return;
+            }
+
+            // If the authentication failed.
+            if (userAccount is null)
+            {
+                context.Response.StatusCode = 401;
+                await context.Response.CompleteAsync();
+                return;
+            }
+
+            // If the authentication succeeded.
+            context.Items.Add("account", userAccount);
             await next();
         }
 
@@ -85,36 +86,29 @@ namespace LucentRP.Features.Authentication
         private static bool AuthenticationIsRequired(HttpContext context)
         {
             // Get the endpoint that is being requested.
-            IEndpointFeature? endpointFeature = context.Features.Get<IEndpointFeature>();
-            object? endpointAuthAttribute = null;
-            object? endpointAnonAttribute = null;
-            object? controllerAuthAttribute = null;
+            Endpoint? endpoint = context.GetEndpoint();
 
             // If the endpoint does not exist.
-            if (endpointFeature == null || endpointFeature.Endpoint == null)
+            if (endpoint is null)
                 return false;
 
             // Get the endpoint's authentication attributes.
-            endpointAuthAttribute = endpointFeature.Endpoint.Metadata.FirstOrDefault(m => m is AuthenticateAttribute);
-            endpointAnonAttribute = endpointFeature.Endpoint.Metadata.FirstOrDefault(m => m is AnonymousAttribute);
+            object? endpointAuthAttribute = endpoint.Metadata.FirstOrDefault(m => m is AuthenticateAttribute);
+            object? endpointAnonAttribute = endpoint.Metadata.FirstOrDefault(m => m is AnonymousAttribute);
 
             // Get the controller the endpoint belings to (may not belong to one).
-            ControllerActionDescriptor? controller = endpointFeature.Endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
+            ControllerActionDescriptor? controller = endpoint.Metadata.GetMetadata<ControllerActionDescriptor>();
+            object? controllerAuthAttribute = null;
 
             // If the endpoint belongs to a controller.
-            if (controller != null)
+            if (controller is not null)
                 controllerAuthAttribute = controller.ControllerTypeInfo.GetCustomAttributes(typeof(AuthenticateAttribute), true).FirstOrDefault();
 
             // If the endpoint allows anonoymous requests.
-            if (endpointAnonAttribute != null)
+            if (endpointAnonAttribute is not null)
                 return false;
 
-            // If the endpoint and the controller do not require authorized requests.
-            if (endpointAuthAttribute == null && controllerAuthAttribute == null)
-                return false;
-
-            // Authentication is required.
-            return true;
+            return endpointAuthAttribute is not null || controllerAuthAttribute is not null;
         }
     }
 }

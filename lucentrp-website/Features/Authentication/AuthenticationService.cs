@@ -6,7 +6,7 @@ namespace LucentRP.Features.Authentication
     /// A static class that is used to register services required by
     /// for user authentication.
     /// </summary>
-    public class AuthenticationService
+    public static class AuthenticationService
     {
         /// <summary>
         /// Register the services required for user authentication.
@@ -15,8 +15,11 @@ namespace LucentRP.Features.Authentication
         public static void Register(IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IAuthenticate, Authenticate>();
+            serviceCollection.AddSingleton<IVerifyAntiForgeryToken, VerifyAntiForgeryToken>();
             serviceCollection.AddSingleton(serviceProvider => new AuthenticationMiddleware(serviceProvider.GetRequiredService<IAuthenticate>()));
+            serviceCollection.AddSingleton(serviceProvider => new AntiForgeryVerificationMiddleware(serviceProvider.GetRequiredService<IVerifyAntiForgeryToken>()));
             serviceCollection.AddSingleton(serviceProvider => new TokenManager(serviceProvider.GetRequiredService<RSAKeyPair>()));
+
             serviceCollection.AddSingleton(serviceProvider =>
                 new RSAKeyPair(
                     AuthUtilities.LoadKey(
