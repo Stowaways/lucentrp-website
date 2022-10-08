@@ -15,19 +15,19 @@ namespace LucentRP.Features.Authentication
         private readonly RSAKeyPair _rsaKeyPair;
 
         /// <summary>
-        /// The query that will be used to get user account information from the database.
+        /// The user account manager that will be used to manager user accounts.
         /// </summary>
-        private readonly IGetUserAccountByID _getUserAccountByID;
+        private readonly UserAccountManager _userAccountManager;
 
         /// <summary>
         /// Construct an Authenticate command.
         /// </summary>
         /// <param name="rsaKeyPair">The RSA key-pair that will be used for authentication.</param>
-        /// <param name="getUserAccountByID">The query that will be used to retrieve user accounts from the database.</param>
-        public Authenticate(RSAKeyPair rsaKeyPair, IGetUserAccountByID getUserAccountByID)
+        /// <param name="getUserAccountByID">The user account manager that will be used to manager user accounts.</param>
+        public Authenticate(RSAKeyPair rsaKeyPair, UserAccountManager userAccountManager)
         {
             _rsaKeyPair = rsaKeyPair;
-            _getUserAccountByID = getUserAccountByID;
+            _userAccountManager = userAccountManager;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace LucentRP.Features.Authentication
                 return null;
 
             // Load the user account from the database.
-            UserAccount? userAccount = _getUserAccountByID.Execute((long)claims["id"]);
+            UserAccount? userAccount = _userAccountManager.GetByID((long)claims["id"]);
 
             // If the user was not found.
             if (userAccount == null)

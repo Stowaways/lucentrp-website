@@ -39,6 +39,7 @@ namespace LucentRP
 
             // Build the web application.
             WebApplication app = builder.Build();
+            app.Services.GetRequiredService<MySqlConnection>().Open();
 
             app.UseCors(builder =>
             {

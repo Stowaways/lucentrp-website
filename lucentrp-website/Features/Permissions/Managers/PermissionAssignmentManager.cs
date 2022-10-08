@@ -24,7 +24,6 @@ namespace LucentRP.Features.Permissions
         /// </summary>
         /// <param name="assignment">The assignment to insert.</param>
         /// <returns>If the operation was successful or not.</returns>
-        /// <exception cref="NotImplementedException"></exception>
         public override bool Insert(PermissionAssignment assignment)
         {
             return sqlConnection.Execute(
@@ -69,7 +68,7 @@ namespace LucentRP.Features.Permissions
         /// </summary>
         /// <param name="assignment">The permission assignment to get.</param>
         /// <returns>The permission assignment.</returns>
-        public override PermissionAssignment? Query(PermissionAssignment assignment)
+        public override PermissionAssignment? Get(PermissionAssignment assignment)
         {
             return sqlConnection.Query<PermissionAssignment>(
                 @"SELECT

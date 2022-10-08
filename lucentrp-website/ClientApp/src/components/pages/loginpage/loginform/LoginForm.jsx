@@ -37,7 +37,7 @@ const submit = async (values, formikHelpers, setServerError) => {
     if (loginResponse.status !== 200) {
         setServerError({
             occurred: true,
-            message: "Your account was created but an error occurred while logging in!"
+            message: "An internal server error occurred, please try again later!"
         });
 
         formikHelpers.resetForm();
@@ -66,7 +66,7 @@ const LoginForm = () => {
             validationSchema={validationSchema}
             validateOnChange={false}
             validateOnBlur={false}
-            onSubmit={(values, actions) => submit(values, actions)}
+            onSubmit={(values, actions) => submit(values, actions, setServerError)}
         >
             {({ isSubmitting, touched, errors }) => (
                 <Form id="login-form">

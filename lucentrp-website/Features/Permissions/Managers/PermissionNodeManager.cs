@@ -67,7 +67,7 @@ namespace LucentRP.Features.Permissions
         /// </summary>
         /// <param name="permissionNode">The permission node to query.</param>
         /// <returns>The result of the query.</returns>
-        public override PermissionNode? Query(PermissionNode permissionNode)
+        public override PermissionNode? Get(PermissionNode permissionNode)
         {
             return sqlConnection.Query<PermissionNode>(
                 @"SELECT

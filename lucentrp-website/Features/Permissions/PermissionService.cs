@@ -14,6 +14,8 @@
         {
             // Managers.
             serviceCollection.AddSingleton<PermissionCategoryManager>();
+            serviceCollection.AddSingleton<PermissionNodeManager>();
+            serviceCollection.AddSingleton<PermissionAssignmentManager>();
         }
     }
 }

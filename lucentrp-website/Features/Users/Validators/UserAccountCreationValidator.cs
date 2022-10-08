@@ -10,14 +10,9 @@ namespace LucentRP.Features.Users
     public class UserAccountCreationValidator : ModelValidator<UserAccount>
     {
         /// <summary>
-        /// The query that will be used to determine if usernames are unique.
+        /// The user account manager that will be used to perform validation.
         /// </summary>
-        private readonly IGetUserAccountByUsername _getUserAccountByUsername;
-
-        /// <summary>
-        ///  The query that will be used to determin if email addresses are unique.
-        /// </summary>
-        private readonly IGetUserAccountByEmail _getUserAccountByEmail;
+        private readonly UserAccountManager _userAccountManager;
 
         /// <summary>
         /// Construct a new UserAccountCreationValidator.
@@ -28,16 +23,15 @@ namespace LucentRP.Features.Users
         /// </remarks>
         /// 
         /// <param name="config">The configuration file containing user account validation parameters.</param>
+        /// <param name="userAccountManager">The user account manager that will be used to manager user accounts.</param>
         /// <param name="basePath">The base path of the configuration section.</param>
         public UserAccountCreationValidator(
             IConfigurationRoot config,
-            IGetUserAccountByUsername getUserAccountByUsername,
-            IGetUserAccountByEmail getUserAccountByEmail,
+            UserAccountManager userAccountManager,
             string basePath = "Validation:User:CreateAccount:"
         ) : base(config, basePath)
         {
-            _getUserAccountByUsername = getUserAccountByUsername;
-            _getUserAccountByEmail = getUserAccountByEmail;
+            _userAccountManager = userAccountManager;
 
             // Email validation rules.
             if (GetBool("Email:Required"))
@@ -75,12 +69,12 @@ namespace LucentRP.Features.Users
             // Uniqueness queries (keep them at the end as they take a lot of time to execute).
             if (GetBool("Email:Unique"))
                 RuleFor(user => user.Email)
-                    .Must(email => _getUserAccountByEmail.Execute(email) == null)
+                    .Must(email => _userAccountManager.GetByEmail(email) == null)
                         .WithMessage("Email address already in use");
 
             if (GetBool("Username:Unique"))
                 RuleFor(user => user.Username)
-                    .Must(username => _getUserAccountByUsername.Execute(username) == null)
+                    .Must(username => _userAccountManager.GetByUsername(username) == null)
                         .WithMessage("Username address already in use");
         }
     }

@@ -64,7 +64,7 @@ namespace LucentRP.Features.Permissions
         /// </summary>
         /// <param name="category">The permission category to get.</param>
         /// <returns>The permission category.</returns>
-        public override PermissionCategory? Query(PermissionCategory category)
+        public override PermissionCategory? Get(PermissionCategory category)
         {
             return sqlConnection.Query<PermissionCategory>(
                 @"SELECT

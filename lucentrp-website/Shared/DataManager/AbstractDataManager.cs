@@ -3,10 +3,10 @@
 namespace LucentRP.Shared.DataManager
 {
     /// <summary>
-    /// An abstract class that where implementing classes are used to manages columns in a database.
+    /// An abstract class that where implementing classes are used to manages rows in a database.
     /// </summary>
-    /// <typeparam name="T">The column data type.</typeparam>
-    public abstract class AbstractDataManager<T> : IColumnManager<T>
+    /// <typeparam name="T">The row data type.</typeparam>
+    public abstract class AbstractDataManager<T> : IrowManager<T>
     {
         /// <summary>
         /// The connection that will be used by the manager.
@@ -14,7 +14,7 @@ namespace LucentRP.Shared.DataManager
         protected readonly MySqlConnection sqlConnection;
 
         /// <summary>
-        /// Construct a new AbstractColumnManager
+        /// Construct a new AbstractrowManager
         /// </summary>
         /// <param name="sqlConnection"></param>
         protected AbstractDataManager(MySqlConnection sqlConnection)
@@ -23,60 +23,60 @@ namespace LucentRP.Shared.DataManager
         }
 
         /// <summary>
-        /// Insert a column.
+        /// Insert a row.
         /// </summary>
-        /// <param name="obj">The column to insert.</param>
+        /// <param name="obj">The row to insert.</param>
         /// <returns>If the operation was successful or not.</returns>
         public abstract bool Delete(T obj);
 
         /// <summary>
-        /// Update a column.
+        /// Update a row.
         /// </summary>
-        /// <param name="obj">The column to update.</param>
+        /// <param name="obj">The row to update.</param>
         /// <returns>If the operation was successful or not.</returns>
         public abstract bool Insert(T obj);
 
         /// <summary>
-        /// Query a column.
+        /// Query a row.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>The result of the query..</returns>
-        public abstract T? Query(T obj);
+        public abstract T? Get(T obj);
 
         /// <summary>
-        /// Delete a column.
+        /// Delete a row.
         /// </summary>
-        /// <param name="obj">The column to delete.</param>
+        /// <param name="obj">The row to delete.</param>
         /// <returns>If the operation was successful or not.</returns>
         public abstract bool Update(T obj);
     }
 
     /// <summary>
-    /// An interface that manages columns.
+    /// An interface that manages rows.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IColumnManager<T>
+    public interface IrowManager<T>
     {
         /// <summary>
-        /// Insert a column.
+        /// Insert a row.
         /// </summary>
         /// <returns>If the operation was successful or not.</returns>
         bool Insert(T obj);
 
         /// <summary>
-        /// Update a column.
+        /// Update a row.
         /// </summary>
         /// <returns>If the operation was successful or not.</returns>
         bool Update(T obj);
 
         /// <summary>
-        /// Query a column.
+        /// Query a row.
         /// </summary>
         /// <returns>The result of the query.</returns>
-        T? Query(T obj);
+        T? Get(T obj);
 
         /// <summary>
-        /// Delete a column.
+        /// Delete a row.
         /// </summary>
         /// <returns>If the operation was successful or not.</returns>
         bool Delete(T obj);

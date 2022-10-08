@@ -29,29 +29,9 @@ namespace LucentRP.Features.Users
         private readonly TokenManager _tokenManager;
 
         /// <summary>
-        /// The command that will be used to insert user accounts.
+        /// The user account manager that will be used to manager user accounts.
         /// </summary>
-        private readonly IInsertUserAccount _insertUserAccount;
-
-        /// <summary>
-        /// The command that will be used to update user accounts.
-        /// </summary>
-        private readonly IUpdateUserAccount _updateUserAccount;
-
-        /// <summary>
-        /// The command that will be used to delete user accounts.
-        /// </summary>
-        private readonly IDeleteUserAccount _deleteUserAccount;
-
-        /// <summary>
-        /// The query that will be used to get users accounts by their id.
-        /// </summary>
-        private readonly IGetUserAccountByID _getUserAccountByID;
-
-        /// <summary>
-        /// The query that will be used to get users accounts by their username.
-        /// </summary>
-        private readonly IGetUserAccountByUsername _getUserAccountByUsername;
+        private readonly UserAccountManager _userAccountManager;
 
         /// <summary>
         /// The validator that will be used to validate account login requests.
@@ -70,11 +50,7 @@ namespace LucentRP.Features.Users
             ILogger<UserController> logger,
             IAuthenticate authenticate,
             TokenManager tokenManager,
-            IInsertUserAccount insertUserAccount,
-            IUpdateUserAccount updateUserAccount,
-            IDeleteUserAccount deleteUserAccount,
-            IGetUserAccountByID getUserAccountByID,
-            IGetUserAccountByUsername getUserAccountByUsername,
+            UserAccountManager userAccountManager,
             UserAccountLoginValidator userAccountLoginValidator,
             UserAccountCreationValidator userAccountCreationValidator
         )
@@ -82,11 +58,7 @@ namespace LucentRP.Features.Users
             _logger = logger;
             _authenticate = authenticate;
             _tokenManager = tokenManager;
-            _insertUserAccount = insertUserAccount;
-            _updateUserAccount = updateUserAccount;
-            _deleteUserAccount = deleteUserAccount;
-            _getUserAccountByID = getUserAccountByID;
-            _getUserAccountByUsername = getUserAccountByUsername;
+            _userAccountManager = userAccountManager;
             _userAccountLoginValidator = userAccountLoginValidator;
             _userAccountCreationValidator = userAccountCreationValidator;
         }
@@ -113,7 +85,7 @@ namespace LucentRP.Features.Users
                 userAccount.Password = AuthUtilities.HashPassword(userAccount.Password);
 
                 // Insert the user's account.
-                bool success = _insertUserAccount.Execute(userAccount);
+                bool success = _userAccountManager.Insert(userAccount);
 
                 // Return the result of the insertion.
                 return success ? Ok(new { }) : StatusCode(500);
@@ -145,7 +117,7 @@ namespace LucentRP.Features.Users
                     return UnprocessableEntity(result.Errors);
 
                 // Get the users information from the database.
-                UserAccount? targetAccount = _getUserAccountByUsername.Execute(userAccount.Username);
+                UserAccount? targetAccount = _userAccountManager.GetByUsername(userAccount.Username);
 
                 // If the user account could not be found.
                 if (targetAccount == null)
@@ -176,7 +148,7 @@ namespace LucentRP.Features.Users
             }
         }
 
-        [Authenticate]
+        [Anonymous]
         [HttpPost]
         /// <summary>
         /// Log out of a user account.
