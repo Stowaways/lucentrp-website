@@ -12,6 +12,8 @@
         <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
         <RootNamespace>LucentRP</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <StartupObject>LucentRP.Program</StartupObject>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,11 +22,17 @@
 	    <PackageReference Include="FluentValidation" Version="11.2.2" />
 	    <PackageReference Include="JWT" Version="9.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.5" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
 		<PackageReference Include="MySql.Data" Version="8.0.30" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
-    <ItemGroup>
+	<Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+		<Copy SourceFiles="public_key.pem" DestinationFolder="$(PublishDir)" />
+		<Copy SourceFiles="private_key.pem" DestinationFolder="$(PublishDir)" />
+	</Target>
+
+	<ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
