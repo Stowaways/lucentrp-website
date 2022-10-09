@@ -3,6 +3,7 @@ using LucentRP.Features.Permissions;
 using LucentRP.Features.Users;
 using LucentRP.Utilities;
 using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace LucentRP
 {
@@ -41,7 +42,17 @@ namespace LucentRP
 
             // Build the web application.
             WebApplication app = builder.Build();
-            app.Services.GetRequiredService<MySqlConnection>().Open();
+
+            // Connect to the database.
+            MySqlConnection connection = app.Services.GetRequiredService<MySqlConnection>();
+            connection.Open();
+            
+            // Configure the database connection.
+            MySqlTransaction transaction = connection.BeginTransaction();
+            connection.Execute("SET NAMES UTF8MB4;", null, transaction);
+            connection.Execute("SET CHARACTER SET UTF8MB4;", null, transaction);
+            connection.Execute("SET character_set_connection = UTF8MB4;", null, transaction);
+            transaction.Commit();
 
             app.UseCors(builder =>
             {
