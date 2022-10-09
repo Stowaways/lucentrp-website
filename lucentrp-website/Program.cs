@@ -30,8 +30,11 @@ namespace LucentRP
             // Add services to the application.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ILogger, Logger<Program>>();
-            builder.Services.AddSingleton(_ => AppSettings);
-            builder.Services.AddSingleton(_ => new MySqlConnection(AppSettings["ConnectionStrings:Default"]));
+            builder.Services.AddSingleton(AppSettings);
+
+            builder.Services.AddSingleton(new MySqlConnection(
+                Environment.GetEnvironmentVariable("ConnectionString") ?? AppSettings["ConnectionStrings:Default"]
+            ));
 
             AuthenticationService.Register(builder.Services);
             PermissionService.Register(builder.Services);

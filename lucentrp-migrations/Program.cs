@@ -33,11 +33,15 @@ namespace LucentRP.Migrations
         /// </summary>
         private static IServiceProvider CreateServices()
         {
+            string connectionString = Environment.GetEnvironmentVariable("ConnectionString") ?? AppSettings["ConnectionStrings:Default"];
+            Console.WriteLine("Logging into: " + connectionString);
+            Console.WriteLine("Environment Var is: " + Environment.GetEnvironmentVariable("ConnectionString"));
+            
             return new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddMySql5()
-                    .WithGlobalConnectionString(AppSettings["ConnectionStrings:Default"])
+                    .WithGlobalConnectionString(connectionString)
                     .ScanIn(typeof(M1_AddUserAccountsTable).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);

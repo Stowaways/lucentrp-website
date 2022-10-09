@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "lucentrp-migrations": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
