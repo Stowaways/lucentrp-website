@@ -33,6 +33,18 @@ const validationSchema = Yup.object().shape({
 const submit = async (values, formikHelpers, setServerError) => {
     const loginResponse = await UserAccountServices.login(values);
 
+    // If the wrong credentials were specified.
+    if (loginResponse.status === 401) {
+        setServerError({
+            occurred: true,
+            message: "You have entered an incorrect username or password!"
+        });
+
+        formikHelpers.resetForm();
+        formikHelpers.setSubmitting(false);
+        return;
+    }
+
     // If an error occurred .
     if (loginResponse.status !== 200) {
         setServerError({
@@ -72,7 +84,7 @@ const LoginForm = () => {
                 <Form id="login-form">
                     {serverError.occurred &&
                         <ErrorBox>
-                            <ErrorIcon className="small-icon" onClick={() => setServerError({ ...serverError, occurred: false })} />
+                            <ErrorIcon className="small-icon" onClick={() => setServerError({ occurred: false, message: "" })} />
                             <p>{serverError.message}</p>
                         </ErrorBox>
                     }

@@ -75,7 +75,7 @@ namespace LucentRP.Features.Users
             if (GetBool("Username:Unique"))
                 RuleFor(user => user.Username)
                     .Must(username => _userAccountManager.GetByUsername(username) == null)
-                        .WithMessage("Username address already in use");
+                        .WithMessage("Username already in use");
         }
     }
 }

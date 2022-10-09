@@ -11,10 +11,11 @@ namespace LucentRP.Migrations
             Execute.Sql(@"
                 CREATE TABLE `permission_categories` (
 	                `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-	                `name` VARCHAR(255) NOT NULL COLLATE 'utf8mb3_general_ci',
+	                `name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	                PRIMARY KEY (`id`) USING BTREE
                 )
-                COLLATE='utf8mb3_general_ci'
+                DEFAULT CHARSET=utf8mb4
+                COLLATE utf8mb4_unicode_ci
                 ENGINE=InnoDB;
             ");
 
@@ -22,12 +23,13 @@ namespace LucentRP.Migrations
                 CREATE TABLE `permission_nodes` (
 	                `id` BIGINT(20) NOT NULL,
 	                `category_id` BIGINT(20) NOT NULL DEFAULT '0',
-	                `name` VARCHAR(255) NOT NULL DEFAULT '' COLLATE 'utf8mb3_general_ci',
+	                `name` VARCHAR(255) NOT NULL DEFAULT '' COLLATE 'utf8mb4_unicode_ci',
 	                PRIMARY KEY (`id`) USING BTREE,
 	                INDEX `FK__permission_categories` (`category_id`) USING BTREE,
 	                CONSTRAINT `FK__permission_categories` FOREIGN KEY (`category_id`) REFERENCES `lucentrp`.`permission_categories` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
                 )
-                COLLATE='utf8mb3_general_ci'
+                DEFAULT CHARSET=utf8mb4
+                COLLATE utf8mb4_unicode_ci
                 ENGINE=InnoDB;
             ");
 
@@ -40,7 +42,8 @@ namespace LucentRP.Migrations
 	                CONSTRAINT `FK__permission_nodes` FOREIGN KEY (`id`) REFERENCES `lucentrp`.`permission_nodes` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
 	                CONSTRAINT `FK__user_accounts` FOREIGN KEY (`id`) REFERENCES `lucentrp`.`user_accounts` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
                 )
-                COLLATE='utf8mb3_general_ci'
+                DEFAULT CHARSET=utf8mb4
+                COLLATE utf8mb4_unicode_ci
                 ENGINE=InnoDB;
             ");
         }

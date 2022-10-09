@@ -25,6 +25,9 @@ namespace LucentRP.Features.Users
         /// <returns>If the operation was successful or not.</returns>
         public override bool Insert(UserAccount userAccount)
         {
+            userAccount.Username = userAccount.Username.ToLower();
+            userAccount.Email = userAccount.Email.ToLower();
+
             return sqlConnection.Execute(
                 @"INSERT INTO 
                     `user_accounts`
