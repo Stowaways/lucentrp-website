@@ -1,6 +1,7 @@
 using LucentRP.Features.Authentication;
 using LucentRP.Features.Permissions;
 using LucentRP.Features.Users;
+using LucentRP.Utilities;
 using MySql.Data.MySqlClient;
 
 namespace LucentRP
@@ -11,14 +12,6 @@ namespace LucentRP
     public class Program
     {
         /// <summary>
-        /// The appsettings.json configuration file.
-        /// </summary>
-        public static IConfigurationRoot AppSettings = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        /// <summary>
         /// The entry point of the program.
         /// </summary>
         /// <param name="args">Arguments passed in through the command line.</param>
@@ -26,14 +19,20 @@ namespace LucentRP
         {
             // Create the web application builder.
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+            EnvironmentConfiguration.Load();
+
+            // Load application settings.
+            IConfigurationRoot appSettings = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
 
             // Add services to the application.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ILogger, Logger<Program>>();
-            builder.Services.AddSingleton(AppSettings);
-
+            builder.Services.AddSingleton(appSettings);
             builder.Services.AddSingleton(new MySqlConnection(
-                Environment.GetEnvironmentVariable("ConnectionString") ?? AppSettings["ConnectionStrings:Default"]
+                appSettings["ConnectionStrings:Default"]
             ));
 
             AuthenticationService.Register(builder.Services);

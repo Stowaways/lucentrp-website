@@ -86,7 +86,7 @@ namespace LucentRP.Features.Users
                 userAccount
             ) > 0;
         }
-        
+
         public UserAccount? GetByField(string field, object value)
         {
             return sqlConnection.Query<UserAccount>(

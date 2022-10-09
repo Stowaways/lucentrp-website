@@ -1,35 +1,27 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-RUN apt-get update
-RUN apt-get install -y curl
-RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
-RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt-get install -y nodejs
-
+# Pull down an image from Docker Hub that includes the ASP.NET sdk.
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Install NodeJS
 RUN apt-get update
 RUN apt-get install -y curl
-RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1-mesa-glx
-RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt-get install -y nodejs
+RUN curl https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install --yes nodejs
+
+# Copy the source from your machine onto the container.
 WORKDIR /src
-COPY ["lucentrp-website/lucentrp-website.csproj", "lucentrp-website/"]
-RUN dotnet restore "lucentrp-website/lucentrp-website.csproj"
 COPY . .
-WORKDIR "/src/lucentrp-website/ClientApp"
-RUN npm install
-RUN npm run build
-WORKDIR "/src/lucentrp-website"
-RUN dotnet build "lucentrp-website.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "lucentrp-website.csproj" -c Release -o /app/publish
+# Install dependencies. 
+RUN dotnet restore "./lucentrp-website.csproj"
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Compile, then pack the compiled app and dependencies into a deployable unit.
+RUN dotnet publish "./lucentrp-website.csproj" -c Release -o /app/publish
+
+# Pull down an image from Docker Hub that includes only the ASP.NET core runtime.
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /publish
+EXPOSE 80
+COPY --from=build /app/publish .
+
+# Define the entry point.
 ENTRYPOINT ["dotnet", "lucentrp-website.dll"]

@@ -1,20 +1,20 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
-WORKDIR /app
-
+# Pull down an image from Docker Hub that includes the ASP.NET sdk.
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Copy the source from your machine onto the container.
 WORKDIR /src
-COPY ["lucentrp-migrations/lucentrp-migrations.csproj", "lucentrp-migrations/"]
-RUN dotnet restore "lucentrp-migrations/lucentrp-migrations.csproj"
 COPY . .
-WORKDIR "/src/lucentrp-migrations"
-RUN dotnet build "lucentrp-migrations.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "lucentrp-migrations.csproj" -c Release -o /app/publish
+# Install dependencies. 
+RUN dotnet restore "./lucentrp-migrations.csproj"
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Compile, then pack the compiled app and dependencies into a deployable unit.
+RUN dotnet publish "./lucentrp-migrations.csproj" -c Release -o /app/publish
+
+# Pull down an image from Docker Hub that includes only the ASP.NET core runtime.
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /publish
+COPY --from=build /app/publish .
+
+# Define the entry point.
 ENTRYPOINT ["dotnet", "lucentrp-migrations.dll"]

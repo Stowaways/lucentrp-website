@@ -1,6 +1,9 @@
 ﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Dynamic;
 
 namespace LucentRP.Migrations
 {
@@ -10,50 +13,59 @@ namespace LucentRP.Migrations
     public static class Program
     {
         /// <summary>
-        /// The appsettings.json configuration file.
-        /// </summary>
-        public static IConfigurationRoot AppSettings = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false)
-            .Build();
-
-
-        /// <summary>
         /// The entry point of the program.
         /// </summary>
         public static void Main()
         {
-            IServiceProvider serviceProvider = CreateServices();
-            using IServiceScope scope = serviceProvider.CreateScope();
-            UpdateDatabase(scope.ServiceProvider);
-        }
+            // Load environment variables.
+            LoadEnvironmentVariables();
 
-        /// <summary>
-        /// Configure the dependency injection services.
-        /// </summary>
-        private static IServiceProvider CreateServices()
-        {
-            string connectionString = Environment.GetEnvironmentVariable("ConnectionString") ?? AppSettings["ConnectionStrings:Default"];
-            Console.WriteLine("Logging into: " + connectionString);
-            Console.WriteLine("Environment Var is: " + Environment.GetEnvironmentVariable("ConnectionString"));
-            
-            return new ServiceCollection()
+            // Load the application settings.
+            IConfigurationRoot appSettings = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();
+
+            // Create a service provider.
+            IServiceProvider serviceProvider = new ServiceCollection()
                 .AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddMySql5()
-                    .WithGlobalConnectionString(connectionString)
+                    .WithGlobalConnectionString(appSettings["ConnectionStrings:Default"])
                     .ScanIn(typeof(M1_AddUserAccountsTable).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 .BuildServiceProvider(false);
+
+            // Run the migrations.
+            using IServiceScope scope = serviceProvider.CreateScope();
+            IMigrationRunner runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+            runner.MigrateUp();
         }
 
         /// <summary>
-        /// Update the database.
+        /// Load envrionment variables that can be used to overwrite appsettings.json
         /// </summary>
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
+        private static void LoadEnvironmentVariables()
         {
-            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-            runner.MigrateUp();
+            string appSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
+            string json = File.ReadAllText(appSettingsPath);
+
+            JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
+            jsonSettings.Converters.Add(new ExpandoObjectConverter());
+            jsonSettings.Converters.Add(new StringEnumConverter());
+
+            dynamic? config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
+
+            if (config is null)
+                return;
+
+            string? ConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+            if (ConnectionString is not null)
+                config.ConnectionStrings.Default = ConnectionString;
+
+            string newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
+            File.WriteAllText(appSettingsPath, newJson);
         }
     }
 }
