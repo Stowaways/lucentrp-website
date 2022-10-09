@@ -22,7 +22,6 @@ export const AccountContext = React.createContext({
  * @returns The component.
  */
 export const AccountContextProvider = (props) => {
-
     const setAccount = (account) => {
         setState({ ...state, account: account })
     }

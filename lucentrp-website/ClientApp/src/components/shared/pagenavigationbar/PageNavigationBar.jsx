@@ -27,7 +27,7 @@ const PageNavigationBar = () => {
                     {account.isLoggedIn && <TopNavigationButton justified="left" href="/dashboard" content="Dashboard" />}
                     {!account.isLoggedIn && <TopNavigationButton justified="right" href="/signup" content="Signup" />}
                     {!account.isLoggedIn && <TopNavigationButton justified="right" href="/login" content="Login" />}
-                    {account.isLoggedIn && <TopNavigationButton justified="right" href="/logout" context="Logout" />}
+                    {account.isLoggedIn && <TopNavigationButton justified="right" href="/logout" content="Logout" />}
                 </HamburgerMenu>
                 <TopNavigationButton justified="center" href="/" content="LucentRP" className="logo-text" />
             </TopNavigationBar>
@@ -42,7 +42,7 @@ const PageNavigationBar = () => {
 
                 {!account.isLoggedIn && <TopNavigationButton justified="right" href="/signup" content="Signup" />}
                 {!account.isLoggedIn && <TopNavigationButton justified="right" href="/login" content="Login" />}
-                {account.isLoggedIn && <TopNavigationButton justified="right" href="/logout" context="Logout" />}
+                {account.isLoggedIn && <TopNavigationButton justified="right" href="/logout" content="Logout" />}
             </TopNavigationBar>
         );
 }

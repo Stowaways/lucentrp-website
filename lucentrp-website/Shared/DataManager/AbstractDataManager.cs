@@ -6,7 +6,7 @@ namespace LucentRP.Shared.DataManager
     /// An abstract class that where implementing classes are used to manages rows in a database.
     /// </summary>
     /// <typeparam name="T">The row data type.</typeparam>
-    public abstract class AbstractDataManager<T> : IrowManager<T>
+    public abstract class AbstractDataManager<T> : IDataManager<T>
     {
         /// <summary>
         /// The connection that will be used by the manager.
@@ -55,7 +55,7 @@ namespace LucentRP.Shared.DataManager
     /// An interface that manages rows.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IrowManager<T>
+    public interface IDataManager<T>
     {
         /// <summary>
         /// Insert a row.

@@ -11,7 +11,7 @@ import './topnavigationbar.css'
  * @returns The navigation bar.
  */
 const TopNavigationBar = (props) => {
-    let children = Array.isArray(props.children) ? props.children : (props.children ? [props.children] : [])
+    let children = Array.isArray(props.children) ? props.children : [props.children]
     children = children.filter(child => child && child.props && child.props.justified)
 
     return (

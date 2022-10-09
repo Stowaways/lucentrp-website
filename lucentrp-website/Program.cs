@@ -1,9 +1,9 @@
+using Dapper;
 using LucentRP.Features.Authentication;
 using LucentRP.Features.Permissions;
 using LucentRP.Features.Users;
 using LucentRP.Utilities;
 using MySql.Data.MySqlClient;
-using Dapper;
 
 namespace LucentRP
 {
@@ -46,7 +46,7 @@ namespace LucentRP
             // Connect to the database.
             MySqlConnection connection = app.Services.GetRequiredService<MySqlConnection>();
             connection.Open();
-            
+
             // Configure the database connection.
             MySqlTransaction transaction = connection.BeginTransaction();
             connection.Execute("SET NAMES UTF8MB4;", null, transaction);
@@ -71,7 +71,8 @@ namespace LucentRP
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "api/v1/{controller}/{action=Index}/{id?}");
+                pattern: "api/v1/{controller}/{action=Index}/{id?}"
+            );
 
             // Add a default file.
             app.MapFallbackToFile("index.html");

@@ -98,6 +98,17 @@ namespace LucentRP.Features.Users
         }
 
         /// <summary>
+        /// Get the account that is sending the request.
+        /// </summary>
+        /// <returns>The account that is sending the request.</returns>
+        [Authenticate]
+        [HttpGet]
+        public IActionResult GetSelf()
+        {
+            return Ok(Request.HttpContext.Items["account"]);
+        }
+
+        /// <summary>
         /// Login to a user account.
         /// </summary>
         /// <param name="userAccount">The user account to login to.</param>

@@ -1,3 +1,4 @@
+import CloseIcon from '../../shared/icons/CloseIcon';
 import './slidingmenu.css';
 
 /**
@@ -19,7 +20,7 @@ const SlidingMenu = ({ id, className, side, children, menuIsOpen, setMenuIsOpen 
             className={"sliding-menu" + (menuIsOpen ? " sliding-menu-open" : "") + (side === "right" ? " sliding-menu-right" : " sliding-menu-left") + (className ? ` ${className}` : "")}
         >
             <div className="close-wrapper">
-                <img className="small-icon" src="icons/close.png" alt="Close button" onClick={() => setMenuIsOpen(false)} />
+                <CloseIcon className="small-icon" alt="Close button" onClick={() => setMenuIsOpen(false)} />
             </div>
             <div className="sliding-menu-inner-container">
                 {children}
