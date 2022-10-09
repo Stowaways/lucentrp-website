@@ -12,10 +12,10 @@ WORKDIR /src
 COPY . .
 
 # Install dependencies. 
-RUN dotnet restore "lucentrp-website.csproj"
+RUN dotnet restore "/src/lucentrp-website.csproj"
 
 # Compile, then pack the compiled app and dependencies into a deployable unit.
-RUN dotnet publish "lucentrp-website.csproj" -c Release -o /app/publish
+RUN dotnet publish "/src/lucentrp-website.csproj" -c Release -o /app/publish
 
 # Pull down an image from Docker Hub that includes only the ASP.NET core runtime.
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
@@ -24,4 +24,4 @@ EXPOSE 80
 COPY --from=build /app/publish .
 
 # Define the entry point.
-ENTRYPOINT ["dotnet", "lucentrp-website.dll"]
+ENTRYPOINT ["dotnet", "/publish/lucentrp-website.dll"]
