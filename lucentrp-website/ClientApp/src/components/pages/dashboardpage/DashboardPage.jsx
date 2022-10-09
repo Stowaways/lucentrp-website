@@ -3,23 +3,22 @@ import React from "react";
 import FullPageSection from "../../layout/fullpagesection/FullPageSection";
 import PageNavigationBar from "../PageNavigationBar";
 
-import "./landingpage.css";
+import "./dashboardpage.css";
 
 /**
- * Create the landing page.
+ * Create the dashboard page.
  * 
- * @returns The landing page.
+ * @returns The dashboard page.
  */
-const LandingPage = () => {
+const DashboardPage = () => {
     return (
         <React.Fragment>
             <PageNavigationBar />
-            <FullPageSection id="hero" subtractNav={true}>
-                <h1>Welcome to LucentRP</h1>
-                <p>Founded on Whiskey and Cheap Perfume</p>
+            <FullPageSection subtractNav={true}>
+
             </FullPageSection>
         </React.Fragment>
     );
 }
 
-export default LandingPage;
+export default DashboardPage;
