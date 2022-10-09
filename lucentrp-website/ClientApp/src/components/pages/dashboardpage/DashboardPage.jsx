@@ -1,7 +1,7 @@
 import React from "react";
 
 import FullPageSection from "../../layout/fullpagesection/FullPageSection";
-import PageNavigationBar from "../PageNavigationBar";
+import PageNavigationBar from "../../shared/pagenavigationbar/PageNavigationBar";
 
 import "./dashboardpage.css";
 

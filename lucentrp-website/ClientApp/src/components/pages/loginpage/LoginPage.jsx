@@ -1,6 +1,6 @@
 import React from "react";
 
-import PageNavigationBar from "../PageNavigationBar";
+import PageNavigationBar from "../../shared/pagenavigationbar/PageNavigationBar";
 import SplitFullPageSection from "../../layout/splitfullpagesection/SplitFullPageSection";
 import LoginForm from "./loginform/LoginForm";
 
