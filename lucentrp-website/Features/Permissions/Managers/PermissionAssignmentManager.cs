@@ -121,7 +121,7 @@ namespace LucentRP.Features.Permissions
                     `id` IN
                     (
                         SELECT
-                            `id` as ID
+                            `permission_node_id` as ID
                         FROM
                             `permission_assignments`
                         WHERE

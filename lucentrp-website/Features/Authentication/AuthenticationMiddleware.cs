@@ -18,6 +18,7 @@ namespace LucentRP.Features.Authentication
         /// <summary>
         /// Create authentication middleware.
         /// </summary>
+        /// 
         /// <param name="authenticate">The authenticate command that will be used
         /// to authenticate users.</param>
         public AuthenticationMiddleware(IAuthenticate authenticate)
@@ -28,6 +29,7 @@ namespace LucentRP.Features.Authentication
         /// <summary>
         /// Execute the authentication.
         /// </summary>
+        /// 
         /// <param name="context">The request context.</param>
         /// <param name="next">The next middleware function to call.</param>
         /// <returns>A task.</returns>
@@ -81,6 +83,7 @@ namespace LucentRP.Features.Authentication
         /// <summary>
         /// Check if authentication is required on a request.
         /// </summary>
+        /// 
         /// <param name="context">The request context.</param>
         /// <returns>If authentication is required or not.</returns>
         private static bool AuthenticationIsRequired(HttpContext context)

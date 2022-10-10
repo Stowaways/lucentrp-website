@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using LucentRP.Features.Authentication;
+using LucentRP.Features.Authorization;
 using LucentRP.Shared.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -102,6 +103,7 @@ namespace LucentRP.Features.Users
         /// </summary>
         /// <returns>The account that is sending the request.</returns>
         [Authenticate]
+        [AuthorizeAll(new string[] { "test1", "test2" })]
         [HttpGet]
         public IActionResult GetSelf()
         {

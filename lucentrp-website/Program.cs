@@ -1,5 +1,6 @@
 using Dapper;
 using LucentRP.Features.Authentication;
+using LucentRP.Features.Authorization;
 using LucentRP.Features.Permissions;
 using LucentRP.Features.Users;
 using LucentRP.Utilities;
@@ -65,9 +66,10 @@ namespace LucentRP
             app.UseStaticFiles();
             app.UseRouting();
 
-            // Add authentication and verification middleware.
+            // Add authentication verification, and authorization middleware.
             app.Use(new AuthenticationMiddleware(app.Services.GetRequiredService<IAuthenticate>()).Execute);
             app.Use(new AntiForgeryVerificationMiddleware(app.Services.GetRequiredService<IVerifyAntiForgeryToken>()).Execute);
+            app.Use(new AuthorizationMiddleware(app.Services.GetRequiredService<PermissionAssignmentManager>()).Execute);
 
             app.MapControllerRoute(
                 name: "default",

@@ -21,6 +21,16 @@
         public long PermissionID { get; set; }
 
         /// <summary>
+        /// Construct a new permission assignment.
+        /// </summary>
+        public PermissionAssignment()
+        {
+            ID = -1;
+            UserID = -1;
+            PermissionID = -1;
+        }
+
+        /// <summary>
         /// Construct a new PermissionAssignment.
         /// </summary>
         /// <param name="id">The id of the permission assignment.</param>
