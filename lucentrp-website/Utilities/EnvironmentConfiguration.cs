@@ -15,27 +15,32 @@ namespace LucentRP.Utilities
         /// </summary>
         public static void Load()
         {
+            // Load the file.
             string appSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
             string json = File.ReadAllText(appSettingsPath);
 
+            // Deserialize the configuration.
             JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
             jsonSettings.Converters.Add(new ExpandoObjectConverter());
             jsonSettings.Converters.Add(new StringEnumConverter());
-
             dynamic? config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
 
+            // If no config exists.
             if (config is null)
                 return;
 
+            // Load environment variables.
             string? AllowedHosts = Environment.GetEnvironmentVariable("ALLOWED_HOSTS");
             string? ConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
+            // Overwrite the appsettings values.
             if (AllowedHosts is not null)
                 config.AllowedHosts = AllowedHosts;
 
             if (ConnectionString is not null)
                 config.ConnectionStrings.Default = ConnectionString;
 
+            // Serialize the configuration.
             string newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
             File.WriteAllText(appSettingsPath, newJson);
         }

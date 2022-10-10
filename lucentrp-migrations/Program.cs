@@ -47,23 +47,28 @@ namespace LucentRP.Migrations
         /// </summary>
         private static void LoadEnvironmentVariables()
         {
+            // Load the file.
             string appSettingsPath = Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json");
             string json = File.ReadAllText(appSettingsPath);
 
+            // Deserialize the configuration.
             JsonSerializerSettings jsonSettings = new JsonSerializerSettings();
             jsonSettings.Converters.Add(new ExpandoObjectConverter());
             jsonSettings.Converters.Add(new StringEnumConverter());
-
             dynamic? config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
 
+            // If no config exists.
             if (config is null)
                 return;
 
+            // Load environment variables.
             string? ConnectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
+            // Overwrite the appsettings values.
             if (ConnectionString is not null)
                 config.ConnectionStrings.Default = ConnectionString;
 
+            // Serialize the configuration.
             string newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
             File.WriteAllText(appSettingsPath, newJson);
         }

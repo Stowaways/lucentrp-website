@@ -1,7 +1,6 @@
 # The LucentRP Website
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mdeslippe/lucentrp-website/.NET?label=.NET%20Build&style=for-the-badge)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mdeslippe/lucentrp-website/Node.js%20CI?label=Node.JS%20Build&style=for-the-badge)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mdeslippe/lucentrp-website/Node.js%20CI?label=docker-image%20Build&style=for-the-badge)
 [![GitHub issues](https://img.shields.io/github/issues/mdeslippe/lucentrp-website?style=for-the-badge)](https://github.com/mdeslippe/lucentrp-website/issues)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mdeslippe/lucentrp-website?label=Code%20Size&style=for-the-badge)
 
@@ -16,11 +15,16 @@ This repository stores all of the source code related to the LucentRP website. T
 5) Run the lucentrp-website project.
 
 ## Dependencies
+
+### Execution Dependencies
+- .NET 6 Runtime
+- MySql or MariaDB
+- Docker 20.10+ (Optional)
+
+### Development Dependencies
+- .NET 6 SDK
 - NodeJS 18+
 - NPM 8+
-- .NET 6 Runtime and SDK
-- MySql or MariaDB
-- Docker 20.10+
 
 ## Contributions
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -8,6 +8,7 @@ import App from './App';
 
 import './index.css';
 
+// Get the root element.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Render the application.
