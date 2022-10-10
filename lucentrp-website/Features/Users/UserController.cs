@@ -141,7 +141,7 @@ namespace LucentRP.Features.Users
         /// 
         /// <param name="username">The username of the user to get.</param>
         /// <returns>The user if they were found, otherwise an error.</returns>
-        [Authenticate]
+        [Anonymous]
         [HttpGet("{username}")]
         public IActionResult GetByUsername(string username)
         {
@@ -164,7 +164,7 @@ namespace LucentRP.Features.Users
         /// 
         /// <param name="email">The email address of the user to get.</param>
         /// <returns>The user if they were found, otherwise an error.</returns>
-        [Authenticate]
+        [Anonymous]
         [HttpGet("{email}")]
         public IActionResult GetByEmail(string email)
         {
@@ -222,7 +222,8 @@ namespace LucentRP.Features.Users
                 return Ok(
                     new
                     {
-                        CsrfToken = antiCsrfToken
+                        CsrfToken = antiCsrfToken,
+                        AccountData = targetAccount
                     }
                 );
             }

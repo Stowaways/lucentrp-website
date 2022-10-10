@@ -9,6 +9,37 @@ import { fetchFromServer } from "../utils/http";
 export const create = async (account) => fetchFromServer('/api/v1/User/Create', 'POST', false, account);
 
 /**
+ * Get information about the requesting account.
+ * 
+ * @returns A promise to the request's response.
+ */
+export const getSelf = async () => fetchFromServer('/api/v1/User/GetSelf', 'GET', true);
+
+/**
+ * Get a user by their id.
+ * 
+ * @param {number} id The id of the user to get. 
+ * @returns A promise to the request's response.
+ */
+export const getByID = async (id) => fetchFromServer(`/api/v1/User/GetByID/${id}`, 'GET', true);
+
+/**
+ * Get as user by their username.
+ * 
+ * @param {string} username The username of the user to get.
+ * @returns A promise to the request's response.
+ */
+export const getByUsername = async (username) => fetchFromServer(`/api/v1/User/GetByUsername/${username}`, 'GET', false);
+
+/**
+ * Get as user by their email address.
+ * 
+ * @param {string} email The email address of the user to get.
+ * @returns A promise to the request's response.
+ */
+export const getByEmail = async (email) => fetchFromServer(`/api/v1/User/GetByEmail/${email}`, 'GET', false);
+
+/**
  * Login to the user account.
  * 
  * @param {object} account The account information.
@@ -19,8 +50,9 @@ export const login = async (account) => {
 
     // If the login attempt was successful.
     if (response.status === 200) {
-        const body = response.json();
-        window.localStorage.setItem("csrfToken", body.csrfToken)
+        const body = await response.json();
+        window.localStorage.setItem("csrfToken", body.csrfToken);
+        window.localStorage.setItem("account", { ...body.accountData, isLoggedIn: true});
     }
 
     return response;

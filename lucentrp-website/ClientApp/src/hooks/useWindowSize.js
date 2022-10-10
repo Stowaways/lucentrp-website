@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 /**
  * A hook to get the window size.
  * 
- * @returns The window size.
+ * @returns The useWindowSize hook.
  */
 const useWindowSize = () => {
     const [windowSize, setWindowSize] = useState({
