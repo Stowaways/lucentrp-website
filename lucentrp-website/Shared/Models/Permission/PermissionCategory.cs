@@ -16,6 +16,15 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// Construct a new permission category.
+        /// </summary>
+        public PermissionCategory()
+        {
+            ID = -1;
+            Name = "";
+        }
+
+        /// <summary>
         /// Construct a permission category.
         /// </summary>
         /// <param name="id">The id of the category.</param>

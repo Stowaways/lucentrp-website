@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using LucentRP.Features.Authentication;
+using LucentRP.Features.Authorization;
 using LucentRP.Shared.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,6 +67,7 @@ namespace LucentRP.Features.Users
         /// <summary>
         /// Create a user account.
         /// </summary>
+        /// 
         /// <param name="userAccount">The user account's informaion.</param>
         /// <returns>If the request was successful or not.</returns>
         [Anonymous]
@@ -100,6 +102,7 @@ namespace LucentRP.Features.Users
         /// <summary>
         /// Get the account that is sending the request.
         /// </summary>
+        /// 
         /// <returns>The account that is sending the request.</returns>
         [Authenticate]
         [HttpGet]
@@ -109,8 +112,79 @@ namespace LucentRP.Features.Users
         }
 
         /// <summary>
+        /// Get a user by their id.
+        /// </summary>
+        /// 
+        /// <param name="id">The id of the user to get.</param>
+        /// <returns>The user if they were found, otherwise an error.</returns>
+        [Authenticate]
+        [AuthorizeAll(new string[] { Shared.Enumerations.Permissions.Administrator })]
+        [HttpGet("{id}")]
+        public IActionResult GetByID(long id)
+        {
+            try
+            {
+                UserAccount? userAccount = _userAccountManager.GetByID(id);
+
+                return (userAccount is null) ? NotFound() : Ok(userAccount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while attempting to retrieve a user from the database: {Message}", ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        /// <summary>
+        /// Get a user by their username.
+        /// </summary>
+        /// 
+        /// <param name="username">The username of the user to get.</param>
+        /// <returns>The user if they were found, otherwise an error.</returns>
+        [Authenticate]
+        [HttpGet("{username}")]
+        public IActionResult GetByUsername(string username)
+        {
+            try
+            {
+                UserAccount? userAccount = _userAccountManager.GetByUsername(username);
+
+                return (userAccount is null) ? NotFound() : Ok(userAccount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while attempting to retrieve a user from the database: {Message}", ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        /// <summary>
+        /// Get a user by their email address.
+        /// </summary>
+        /// 
+        /// <param name="email">The email address of the user to get.</param>
+        /// <returns>The user if they were found, otherwise an error.</returns>
+        [Authenticate]
+        [HttpGet("{email}")]
+        public IActionResult GetByEmail(string email)
+        {
+            try
+            {
+                UserAccount? userAccount = _userAccountManager.GetByEmail(email);
+
+                return (userAccount is null) ? NotFound() : Ok(userAccount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while attempting to retrieve a user from the database: {Message}", ex.Message);
+                return StatusCode(500);
+            }
+        }
+
+        /// <summary>
         /// Login to a user account.
         /// </summary>
+        /// 
         /// <param name="userAccount">The user account to login to.</param>
         /// <returns>An authentication cookie if the credentials were correct, 
         /// otherwise an error code.</returns>
@@ -164,6 +238,7 @@ namespace LucentRP.Features.Users
         /// <summary>
         /// Log out of a user account.
         /// </summary>
+        /// 
         /// <returns>A cookie to log the requester out.</returns>
         public IActionResult Logout()
         {
@@ -174,6 +249,7 @@ namespace LucentRP.Features.Users
         /// <summary>
         /// Check if the request contains a valid authentication cookie.
         /// </summary>
+        /// 
         /// <returns>If the sender is authenticated or not.</returns>
         [Anonymous]
         [HttpPost]

@@ -3,7 +3,7 @@
 namespace LucentRP.Features.Authentication
 {
     /// <summary>
-    /// A static class that is used to register services required by
+    /// A static class that is used to register services required
     /// for user authentication.
     /// </summary>
     public static class AuthenticationService
@@ -11,6 +11,7 @@ namespace LucentRP.Features.Authentication
         /// <summary>
         /// Register the services required for user authentication.
         /// </summary>
+        /// 
         /// <param name="serviceCollection">The service collection the services will be registered to.</param>
         public static void Register(IServiceCollection serviceCollection)
         {

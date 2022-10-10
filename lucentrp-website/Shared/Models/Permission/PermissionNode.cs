@@ -21,6 +21,16 @@
         public string Name { get; set; }
 
         /// <summary>
+        /// Construct a new permission node.
+        /// </summary>
+        public PermissionNode()
+        {
+            ID = -1;
+            CategoryID = -1;
+            Name = "";
+        }
+
+        /// <summary>
         /// Construct a new permission.
         /// </summary>
         /// <param name="id">The permission's id.</param>

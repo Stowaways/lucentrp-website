@@ -51,7 +51,7 @@
         public bool AccountIsBanned { get; set; }
 
         /// <summary>
-        /// Construct a  new UserAccount.
+        /// Construct a new UserAccount.
         /// </summary>
         public UserAccount()
         {
@@ -63,7 +63,7 @@
         }
 
         /// <summary>
-        /// Construct a  new UserAccount.
+        /// Construct a new UserAccount.
         /// </summary>
         /// <param name="id">The id that uniquely identifies the user.</param>
         /// <param name="accountCreated">The date and time the user's account was created.</param>

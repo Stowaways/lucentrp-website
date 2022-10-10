@@ -2,7 +2,7 @@
 
 namespace LucentRP.Migrations
 {
-    // Created on 08/10/2022.
+    // Created on 08.10.2022
     [Migration(2)]
     public class M2_AddPermissionTables : Migration
     {
@@ -22,7 +22,7 @@ namespace LucentRP.Migrations
             Execute.Sql(@"
                 CREATE TABLE `permission_nodes` (
 	                `id` BIGINT(20) NOT NULL,
-	                `category_id` BIGINT(20) NOT NULL DEFAULT '0',
+	                `category_id` BIGINT(20) NOT NULL,
 	                `name` VARCHAR(255) CHARACTER SET 'utf8mb4' NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	                PRIMARY KEY (`id`) USING BTREE,
 	                INDEX `FK__permission_categories` (`category_id`) USING BTREE,

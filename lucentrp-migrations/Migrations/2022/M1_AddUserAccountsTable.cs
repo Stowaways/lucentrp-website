@@ -2,7 +2,7 @@
 
 namespace LucentRP.Migrations
 {
-    // Created on 08/10/2022.
+    // Created on 08.10.2022
     [Migration(1)]
     public class M1_AddUserAccountsTable : Migration
     {
