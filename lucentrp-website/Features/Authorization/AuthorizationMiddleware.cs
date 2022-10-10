@@ -143,8 +143,8 @@ namespace LucentRP.Features.Authorization
         /// <returns>If authorization is required or not.</returns>
         private static bool AuthorizationIsRequired(AuthorizationAttributes attributes)
         {
-            return attributes.Endpoint.AuthorizeAnyAttribute is not null   ||
-                   attributes.Endpoint.AuthorizeAllAttribute is not null   ||
+            return attributes.Endpoint.AuthorizeAnyAttribute is not null ||
+                   attributes.Endpoint.AuthorizeAllAttribute is not null ||
                    attributes.Controller.AuthorizeAnyAttribute is not null ||
                    attributes.Controller.AuthorizeAllAttribute is not null;
         }
@@ -180,7 +180,8 @@ namespace LucentRP.Features.Authorization
         /// <param name="authorizationAttributes">The authorization attributes.</param>
         /// <param name="permissions">The permissions.</param>
         /// <returns></returns>
-        private static bool HasRequiredPermissions(AuthorizationAttributes authorizationAttributes, string[] permissions) {
+        private static bool HasRequiredPermissions(AuthorizationAttributes authorizationAttributes, string[] permissions)
+        {
             bool isAuthorized = true;
 
             // If the endpoint requires the user to have any permission in a collection of permissions.

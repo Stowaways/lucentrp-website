@@ -42,7 +42,7 @@
         /// <summary>
         /// The authorize all attribute.
         /// </summary>
-        public AuthorizeAllAttribute? AuthorizeAllAttribute { get;}
+        public AuthorizeAllAttribute? AuthorizeAllAttribute { get; }
 
         /// <summary>
         /// Construct a new AuthorizationPair.
